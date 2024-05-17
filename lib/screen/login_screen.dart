@@ -1,4 +1,5 @@
 import 'package:adoptapet/screen/register_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,19 +42,23 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Welcome!",
-            style: TextStyle(
-              fontSize: 40,
-              color: Color(0xFF946E54),
-              fontWeight: FontWeight.bold,
+
+
+             Text("Welcome!",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 40,
+                color: Color(0xFF946E54),
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
+
           SizedBox(
             height: 5,
           ),
           Text("Login to continue",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 22,
               color: Color(0xFF946E54),
             ),
           ),
@@ -62,16 +67,49 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Username"
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        suffixIcon: Icon(
+                          Icons.email,
+                          size: 25,
+                          color: Colors.black.withOpacity(0.7),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0xFF946E54),
+                            width: 1.5,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(3)),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "Password"
+                      obscureText: true,
+                      obscuringCharacter: '*',
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+
+                        suffixIcon: Icon(
+                          Icons.vpn_key_rounded,
+                          size: 25,
+                          color: Colors.black.withOpacity(0.7),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0xFF946E54),
+                            width: 1.5,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(3)),
+                        ),
                       ),
                     ),
                     SizedBox(
