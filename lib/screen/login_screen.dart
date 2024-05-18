@@ -1,3 +1,4 @@
+import 'package:adoptapet/screen/dashboard_screen.dart';
 import 'package:adoptapet/screen/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,26 +11,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? email;
+  String? password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFEFAE0),
       appBar: AppBar(
-        leading: Image.asset('assets/images/logo.png'),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+          child: Image.asset('assets/images/logo.png'),
+        ),
         title: RichText(
           text: TextSpan(
             children: [
               TextSpan(
                 text: 'Adopt',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   color: Colors.black,
                 ),
               ),
               TextSpan(
                 text: 'apet',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   color: Colors.orange,
                 ),
               ),
@@ -67,6 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     TextFormField(
+                      onChanged: (value) {
+                        email = value;
+                      },
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         suffixIcon: Icon(
@@ -92,6 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       obscureText: true,
                       obscuringCharacter: '*',
+                      onChanged: (value) {
+                        password = value;
+                      },
+                      
                       decoration: InputDecoration(
                         labelText: 'Password',
 
@@ -118,7 +133,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 50,
                       width: 100,
-                        child: ElevatedButton(onPressed: (){},
+                        child: ElevatedButton(onPressed: (){
+                          if(email =="Admin" && password =="Admin"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => DashBoardScreen()),
+                            );
+                          }
+                        },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFD9A26C), // Background color
                             ),

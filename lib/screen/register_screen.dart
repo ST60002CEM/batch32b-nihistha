@@ -7,6 +7,33 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFEFAE0),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+          child: Image.asset('assets/images/logo.png'),
+        ),
+        title: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Adopt',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+              TextSpan(
+                text: 'apet',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.orange,
+                ),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Color(0xFFFEFAE0),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,7 +109,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'Password',
                       suffixIcon: Icon(
                         Icons.vpn_key,
                         size: 25,
@@ -104,8 +131,23 @@ class RegisterScreen extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Comfirm Password"
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      suffixIcon: Icon(
+                        Icons.vpn_key,
+                        size: 25,
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF946E54),
+                          width: 1.5,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -129,25 +171,17 @@ class RegisterScreen extends StatelessWidget {
                 ],
               ),
             ),
-
           ),
-
               Text("Or Sign up with google",
                 style: TextStyle(
                     fontSize: 18
                 ),
               ),
-          //     GestureDetector(
-          //       onTap: () {
-          //         // Navigate to sign-up screen
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(builder: (_) => RegisterScreen()),
-          //         );
-          //       },
-          //
-          //
-          // ),
+          SizedBox(width: 12), // Add some space between the text and the image
+          Image.asset(
+            'assets/images/google_logo.png', // Path to your Google logo
+            height: 40, // Adjust the height as needed
+          ),
         ],
       ),
     );

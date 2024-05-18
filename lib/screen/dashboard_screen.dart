@@ -14,21 +14,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFFEFAE0),
       appBar: AppBar(
-        leading: Image.asset('assets/images/logo.png'),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+          child: Image.asset('assets/images/logo.png'),
+        ),
         title: RichText(
           text: TextSpan(
             children: [
               TextSpan(
                 text: 'Adopt',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   color: Colors.black,
                 ),
               ),
               TextSpan(
                 text: 'apet',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   color: Colors.orange,
                 ),
               ),
@@ -37,10 +40,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         ),
         backgroundColor: Color(0xFFFEFAE0),
       ),
-      body: Column(
+      body: Stack(
         children: [
           Container(
-            height: 250,
+            height: 220,
             decoration: BoxDecoration(
               image: const DecorationImage(
                   image: AssetImage(
@@ -72,7 +75,26 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ],
             ),
           ),
+
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.brown,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+        ],
+
       ),
     );
   }

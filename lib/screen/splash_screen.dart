@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Simulate a long-running operation such as fetching data or initializing resources
-    Timer(Duration(seconds: 15), () {
+    Timer(Duration(seconds: 2), () {
       // After 3 seconds, navigate to the home screen
       Navigator.pushReplacement(
         context,
