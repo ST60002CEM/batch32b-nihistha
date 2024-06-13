@@ -1,11 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:student_management_starter/app/constants/hive_table_constant.dart';
-import 'package:student_management_starter/features/auth/domain/entity/auth_entity.dart';
-import 'package:student_management_starter/features/batch/data/model/batch_hive_model.dart';
-import 'package:student_management_starter/features/course/data/model/course_hive_model.dart';
 import 'package:uuid/uuid.dart';
-
+import '../../../../app/constants/hive_table_constant.dart';
 import '../../domain/entity/auth_entity.dart';
 
 part 'auth_hive_model.g.dart';
@@ -14,10 +10,10 @@ final authHiveModelProvider = Provider(
       (ref) => AuthHiveModel.empty(),
 );
 
-@HiveType(typeId: HiveTableConstant.studentTableId)
+@HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel {
   @HiveField(0)
-  final String Id;
+  final String id;
 
   @HiveField(1)
   final String fullname;
@@ -33,17 +29,17 @@ class AuthHiveModel {
 
   // Constructor
   AuthHiveModel({
-    String? Id,
+    String? id,
     required this.fullname,
     required this.email,
     required this.phone,
     required this.password,
-  }) : Id = Id ?? const Uuid().v4();
+  }) : id = id ?? const Uuid().v4();
 
   // empty constructor
   AuthHiveModel.empty()
       : this(
-    Id: '',
+    id: '',
     fullname: '',
     email: '',
     phone: '',
@@ -52,7 +48,7 @@ class AuthHiveModel {
 
   // Convert Hive Object to Entity
   AuthEntity toEntity() => AuthEntity(
-    id: Id,
+    id: id,
     fullname: fullname,
     phone: phone,
     email: email,
@@ -61,7 +57,7 @@ class AuthHiveModel {
 
   // Convert Entity to Hive Object
   AuthHiveModel toHiveModel(AuthEntity entity) => AuthHiveModel(
-    Id: const Uuid().v4(),
+    id: const Uuid().v4(),
     fullname: entity.fullname,
     email: entity.email,
     phone: entity.phone,
@@ -74,6 +70,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'id: $Id, fullname: $fullname, email: $email, phone: $phone, password: $password';
+    return 'id: $id, fullname: $fullname, email: $email, phone: $phone, password: $password';
   }
 }
