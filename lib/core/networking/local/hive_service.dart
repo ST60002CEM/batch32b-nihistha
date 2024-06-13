@@ -1,10 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:student_management_starter/app/constants/hive_table_constant.dart';
-import 'package:student_management_starter/features/auth/data/model/auth_hive_model.dart';
-import 'package:student_management_starter/features/batch/data/model/batch_hive_model.dart';
-import 'package:student_management_starter/features/course/data/model/course_hive_model.dart';
+import '../../../app/constants/hive_table_constant.dart';
+import '../../../feature/auth/data/model/auth_hive_model.dart';
 
 final hiveServiceProvider = Provider((ref) => HiveService());
 
@@ -19,24 +17,24 @@ class HiveService {
 
 
 
-  Future<void> addStudent(AuthHiveModel student) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
-    await box.put(student.studentId, student);
+  Future<void> addUser(AuthHiveModel user) async {
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
+    await box.put(user.id, user);
   }
 
-  Future<List<AuthHiveModel>> getAllStudents() async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
-    var students = box.values.toList();
-    box.close();
-    return students;
-  }
+  // Future<List<AuthHiveModel>> getAllStudents() async {
+  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.us);
+  //   var students = box.values.toList();
+  //   box.close();
+  //   return students;
+  // }
 
   //Login
-  Future<AuthHiveModel?> login(String username, String password) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
-    var student = box.values.firstWhere((element) =>
-    element.username == username && element.password == password);
+  Future<AuthHiveModel?> login(String email, String password) async {
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
+    var user = box.values.firstWhere((element) =>
+    element.email == email && element.password == password);
     box.close();
-    return student;
+    return user;
   }
 }
