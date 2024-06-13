@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/networking/local/hive_service.dart';
 import '../../../domain/entity/auth_entity.dart';
-import '../../model/auth_model.dart';
+import '../../model/auth_hive_model.dart';
 
 final authLocalDataSourceProvider = Provider(
       (ref) => AuthLocalDataSource(
