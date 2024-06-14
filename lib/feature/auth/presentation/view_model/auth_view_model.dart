@@ -7,6 +7,14 @@ import '../../../../core/common/my_snackbar.dart';
 import '../../domain/entity/auth_entity.dart';
 import '../../domain/usecases/auth_usecases.dart';
 
+final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
+      (ref) => AuthViewModel(
+    ref.read(loginViewNavigatorProvider),
+    ref.read(authUseCaseProvider),
+  ),
+);
+
+
 class AuthViewModel extends StateNotifier<AuthState>{
   AuthViewModel(this.navigator,this.authUseCase): super(AuthState.initial());
   final AuthUseCase authUseCase;

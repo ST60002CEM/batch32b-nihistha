@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entity/auth_entity.dart';
+import '../view_model/auth_view_model.dart';
+
 class RegisterView extends ConsumerStatefulWidget {
   const RegisterView({super.key});
 
@@ -9,6 +12,14 @@ class RegisterView extends ConsumerStatefulWidget {
 }
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
+
+  final _key = GlobalKey<FormState>();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +79,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _fullNameController,
                     decoration: InputDecoration(
                       labelText: 'Full Name',
                       suffixIcon: Icon(
@@ -86,11 +98,18 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         borderRadius: BorderRadius.all(Radius.circular(3)),
                       ),
                     ),
+                    validator: ((value){
+                      if(value == null || value.isEmpty){
+                        return "Please enter full name";
+                      }
+                      return null;
+                    }),
                   ),
                   SizedBox(
                     height: 40,
                   ),
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
                       suffixIcon: Icon(
@@ -109,11 +128,48 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         borderRadius: BorderRadius.all(Radius.circular(3)),
                       ),
                     ),
+                    validator: ((value){
+                      if(value == null || value.isEmpty){
+                        return "Please enter email";
+                      }
+                        return null;
+                    }),
                   ),
                   SizedBox(
                     height: 40,
                   ),
                   TextFormField(
+                    controller: _phoneController,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      suffixIcon: Icon(
+                        Icons.vpn_key,
+                        size: 25,
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF946E54),
+                          width: 1.5,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                      ),
+                    ),
+                    validator: ((value){
+                      if(value == null || value.isEmpty){
+                        return "Please enter Phone number";
+                      }
+                        return null;
+                    }),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       suffixIcon: Icon(
@@ -132,37 +188,54 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         borderRadius: BorderRadius.all(Radius.circular(3)),
                       ),
                     ),
+                    validator: ((value){
+                      if(value == null || value.isEmpty){
+                        return "Please enter password";
+                      }
+                      return null;
+                    }),
                   ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      suffixIcon: Icon(
-                        Icons.vpn_key,
-                        size: 25,
-                        color: Colors.black.withOpacity(0.7),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0xFF946E54),
-                          width: 1.5,
-                          style: BorderStyle.solid,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(3)),
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 40,
+                  // ),
+                  // TextFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Confirm Password',
+                  //     suffixIcon: Icon(
+                  //       Icons.vpn_key,
+                  //       size: 25,
+                  //       color: Colors.black.withOpacity(0.7),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderSide: const BorderSide(
+                  //         color: Color(0xFF946E54),
+                  //         width: 1.5,
+                  //         style: BorderStyle.solid,
+                  //       ),
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(3)),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 40,
                   ),
                   SizedBox(
                       height: 40,
                       width: 130,
-                      child: ElevatedButton(onPressed: (){},
+                      child: ElevatedButton(onPressed: (){
+                          var user = AuthEntity(
+                            fullname: _fullNameController.text,
+                            email: _emailController.text,
+                            phone: _phoneController.text,
+                            password: _passwordController.text,
+                          );
+                          ref
+                              .read(authViewModelProvider.notifier)
+                              .registerUser(user);
+                        },
+
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFD9A26C), // Background color
                           ),
