@@ -51,7 +51,7 @@ class AuthViewModel extends StateNotifier<AuthState>{
       },
           (success) {
         state = state.copyWith(isLoading: false, error: null);
-        openRegisterView();
+        openHomeView();
       },
     );
   }
@@ -59,7 +59,7 @@ class AuthViewModel extends StateNotifier<AuthState>{
     navigator.openRegisterView();
   }
 
-  // void openHomeView() {
-  //   navigator.openHomeView();
-  // }
+  void openHomeView() {
+    navigator.openHomeView();
+  }
 }

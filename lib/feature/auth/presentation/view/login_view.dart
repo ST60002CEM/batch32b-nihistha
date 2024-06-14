@@ -108,6 +108,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   ),
                   TextFormField(
                     key: const ValueKey('password'),
+                    controller: _passwordController,
                     obscureText: true,
                     obscuringCharacter: '*',
 
@@ -145,14 +146,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       height: 50,
                       width: 100,
                       child: ElevatedButton(onPressed: ()async{
-                        if (_formKey.currentState!.validate()) {
+
                           await ref
                               .read(authViewModelProvider.notifier)
                               .loginUser(
                             _emailController.text,
                             _passwordController.text,
                           );
-                        }
+
                       },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFD9A26C), // Background color
