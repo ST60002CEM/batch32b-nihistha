@@ -228,7 +228,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           var user = AuthEntity(
                             fullname: _fullNameController.text,
                             email: _emailController.text,
-                            phone: _phoneController.text,
+                            phonenumber: _phoneController.text,
                             password: _passwordController.text,
                           );
                           ref
