@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/networking/remote/http_service.dart';
 
-final authRemoteDataSource = Provider(
+final authRemoteDataSourceProvider = Provider(
       (ref) => AuthRemoteDataSource(
     dio: ref.read(httpServiceProvider),
     // userSharedPrefs: ref.read(userSharedPrefsProvider),
