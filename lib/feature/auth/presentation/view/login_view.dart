@@ -46,7 +46,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
         ),
         backgroundColor: Color(0xFFFEFAE0),
       ),
-      body: Column(
+      body:
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

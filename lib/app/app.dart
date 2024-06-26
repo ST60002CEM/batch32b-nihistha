@@ -1,3 +1,4 @@
+import 'package:adoptapet/feature/pets_listing/presentation/view/pet_listing_view.dart';
 import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: const SplashView(),
+      home: const PetListingView(),
     );
   }
 }

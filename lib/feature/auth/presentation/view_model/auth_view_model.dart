@@ -1,5 +1,6 @@
 import 'package:adoptapet/feature/auth/presentation/navigator/login_navigator.dart';
 import 'package:adoptapet/feature/auth/presentation/state/auth_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,6 +35,7 @@ class AuthViewModel extends StateNotifier<AuthState>{
           (success) {
         state = state.copyWith(isLoading: false, error: null);
         showMySnackBar(message: "Successfully registered");
+
       },
     );
   }
