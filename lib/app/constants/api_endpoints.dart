@@ -11,4 +11,7 @@ class ApiEndpoints{
   static const String login = "user/login";
   static const String register = "user/create";
   static const String currentUser = "user/getMe";
+  static const String listings = "pets/get_only_listing";
+
+  static const limitPage = 10;
 }
