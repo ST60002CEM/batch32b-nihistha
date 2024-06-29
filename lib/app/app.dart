@@ -15,7 +15,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: const HomeView(),
+      home: const PetListingView(),
     );
   }
 }
