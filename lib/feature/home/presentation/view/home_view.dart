@@ -19,112 +19,127 @@ class _HomeViewState extends ConsumerState<HomeView> {
   // ];
 //   final int pet = 3;
 //   final categories = 3;
-//   @override
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 100,
-                child: GestureDetector(
-                  onTap: (){},
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 30,
-                      top: 10,
-                    ),
-                    child: Row(
-                      children: [
-                      Container(
-                      height: 80,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.amber,
-                            blurRadius: 12,
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Dog",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 80,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.amber,
-                            blurRadius: 12,
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Dog",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          height: 80,
-                          width: 75,
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.amber,
-                                blurRadius: 12,
-                                spreadRadius: 1,
-                              )
-                            ],
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Dog",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                      ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+            child: Image.asset('assets/images/logo.png'),
+          ),
+          title: RichText(
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Adopt',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
                   ),
                 ),
-              )
-              ),
-  ]
+                TextSpan(
+                  text: 'apet',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.orange,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // backgroundColor: Color(0xFFB2967D),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
 
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7, // Adjust width as needed
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(color: Color(0xFF8B5E3C)), // Brown border
+                    ),
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(90, 45),
+                      backgroundColor: Color(0xFF8B5E3C),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                      'Dogs',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(90, 45),
+                      backgroundColor: Color(0xFF8B5E3C),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                      'Cats',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(90, 45),
+                      backgroundColor: Color(0xFF8B5E3C),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                      'Others',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Text("Featured Pets",
+                style: TextStyle(
+
+                ),),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: ListTile(
+                  leading: Icon(Icons.pets), // Example icon, replace with your content
+                  title: Text('Pet Information'), // Example title, replace with your content
+                  subtitle: Text('Details about the selected pet'), // Example subtitle, replace with your content
+                  trailing: Icon(Icons.arrow_forward), // Example trailing icon, replace with your content
+                  onTap: () {
+                    // Handle tap event
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
