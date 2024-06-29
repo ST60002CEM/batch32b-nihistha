@@ -2,6 +2,8 @@ import 'package:adoptapet/feature/pets_listing/data/data_source/pet_listing_data
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/constants/api_endpoints.dart';
+import '../../../../core/common/widgets/petcard.dart';
 import '../view_model/pet_listing_view_model.dart';
 
 
@@ -36,7 +38,7 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: Colors.amber[100],
+        // backgroundColor: Colors.amber[100],
         appBar: AppBar(
           backgroundColor: Colors.yellow[400],
           title: const Text('Photos Pagination'),
@@ -69,73 +71,79 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final petListings = state.petListings[index];
+                      return ProductCard(
+                          image: '${ApiEndpoints.imageBaseUrl}public/listings/${petListings.petImage}',
+                          name: petListings.petName,
+                          size: petListings.size,);
 
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                petListings.petid.toString(),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Image.network(
-                                  petListings.petImage,
-                                  height: 200,
-                                  width: 200,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else if (loadingProgress
-                                        .expectedTotalBytes !=
-                                        null) {
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          color: Colors.red,
-                                          value: loadingProgress
-                                              .cumulativeBytesLoaded /
-                                              loadingProgress
-                                                  .expectedTotalBytes!,
-                                        ),
-                                      );
-                                    } else {
-                                      // If total bytes are unknown, you may want to handle it differently
-                                      return const Center(
-                                        child: CircularProgressIndicator(
-                                            color: Colors.red),
-                                      );
-                                    }
-                                  },
-                                  errorBuilder: (BuildContext context,
-                                      Object error, StackTrace? stackTrace) {
-                                    return const Center(
-                                      child: Text('Failed to load image'),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Text(
-                                petListings.petName,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      // return Card(
+                      //   color: Colors.brown,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Column(
+                      //       children: [
+                      //         // Text(
+                      //         //   petListings.petid.toString(),
+                      //         //   style: const TextStyle(
+                      //         //     fontSize: 20,
+                      //         //     fontWeight: FontWeight.bold,
+                      //         //   ),
+                      //         // ),
+                      //         DecoratedBox(
+                      //           decoration: BoxDecoration(
+                      //             color: Colors.brown,
+                      //             border: Border.all(),
+                      //             borderRadius: BorderRadius.circular(20),
+                      //           ),
+                      //           child: Image.network(
+                      //             petListings.petImage,
+                      //             height: 200,
+                      //             width: 200,
+                      //             loadingBuilder: (BuildContext context,
+                      //                 Widget child,
+                      //                 ImageChunkEvent? loadingProgress) {
+                      //               if (loadingProgress == null) {
+                      //                 return child;
+                      //               } else if (loadingProgress
+                      //                   .expectedTotalBytes !=
+                      //                   null) {
+                      //                 return Center(
+                      //                   child: CircularProgressIndicator(
+                      //                     color: Colors.red,
+                      //                     value: loadingProgress
+                      //                         .cumulativeBytesLoaded /
+                      //                         loadingProgress
+                      //                             .expectedTotalBytes!,
+                      //                   ),
+                      //                 );
+                      //               } else {
+                      //                 // If total bytes are unknown, you may want to handle it differently
+                      //                 return const Center(
+                      //                   child: CircularProgressIndicator(
+                      //                       color: Colors.red),
+                      //                 );
+                      //               }
+                      //             },
+                      //             errorBuilder: (BuildContext context,
+                      //                 Object error, StackTrace? stackTrace) {
+                      //               return const Center(
+                      //                 child: Text('Failed to load image'),
+                      //               );
+                      //             },
+                      //           ),
+                      //         ),
+                      //         Text(
+                      //           petListings.petName,
+                      //           textAlign: TextAlign.center,
+                      //           style: const TextStyle(
+                      //             fontSize: 20,
+                      //             color: Colors.white
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
                     },
                   ),
                 ),
