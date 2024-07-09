@@ -16,5 +16,5 @@ class ApiEndpoints{
   static const String currentUser = "user/getMe";
   static const String listings = "pets/get_only_listing";
 
-  static const limitPage = 8;
+  static const limitPage = 4;
 }

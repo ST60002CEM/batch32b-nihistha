@@ -1,3 +1,5 @@
+import 'package:adoptapet/core/common/widgets/petcard.dart';
+import 'package:adoptapet/feature/pets_listing/presentation/view/pet_listing_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -106,7 +108,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   ),
                   SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PetListingView(), // Replace with your page
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(90, 45),
                       backgroundColor: Color(0xFF8B5E3C),
@@ -116,7 +125,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     ),
                     child: Text(
-                      'Others',
+                      'All Pets',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -130,15 +139,75 @@ class _HomeViewState extends ConsumerState<HomeView> {
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: ListTile(
-                  leading: Icon(Icons.pets), // Example icon, replace with your content
-                  title: Text('Pet Information'), // Example title, replace with your content
-                  subtitle: Text('Details about the selected pet'), // Example subtitle, replace with your content
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage('https://miro.medium.com/v2/resize:fit:794/0*a9fixIuxz1V28Ih5.jpg'),
+                    radius: 30,
+                  ), // Example icon, replace with your content
+                  title: Text('Our Organization'), // Example title, replace with your content
+                  subtitle: Text('Learn more about our organization'), // Example subtitle, replace with your content
                   trailing: Icon(Icons.arrow_forward), // Example trailing icon, replace with your content
                   onTap: () {
                     // Handle tap event
                   },
                 ),
               ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+          Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                child: Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLVyH-HnMy5kWybuQLBaeuEFTrC8PqQQ1KFQ&s',
+                  height: 150,
+                  width: 130,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(child: Text('Image not found'));
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Maya"),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                child: Image.network(
+                  'https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg',
+                  height: 150,
+                  width: 130,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(child: Text('Image not found'));
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Bella"),
+              ),
+            ],
+          ),
+        ),],),
             ],
           ),
         ),

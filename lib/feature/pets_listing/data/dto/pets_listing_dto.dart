@@ -26,18 +26,7 @@ class PetsListingDto{
     required this.aboutPet,
     required this.petImage,
 });
-  PetsListingEntity toEntity(){
-    return PetsListingEntity(
-        petid:petid,
-        petName: petName,
-        petType: petType,
-        breed: breed,
-        gender: gender,
-        size: size,
-        aboutPet: aboutPet,
-        petImage: petImage
-    );
-  }
+
 
   factory PetsListingDto.fromJson(Map<String, dynamic> json) =>
       _$PetsListingDtoFromJson(json);

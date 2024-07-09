@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/constants/api_endpoints.dart';
-import '../../../../core/common/widgets/petcard.dart';
 import '../view_model/pet_listing_view_model.dart';
 
 
@@ -39,23 +38,38 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
       },
       child: Scaffold(
         // backgroundColor: Colors.amber[100],
+
         appBar: AppBar(
-          backgroundColor: Colors.yellow[400],
-          title: const Text('Photos Pagination'),
-          actions: [
-            TextButton.icon(
-              onPressed: () {
-                ref.read(petListingViewModelProvider.notifier).resetState();
-              },
-              icon: const Icon(Icons.refresh),
-              label: const Text('Refresh'),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
+            child: Image.asset('assets/images/logo.png'),
+          ),
+          title: RichText(
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Adopt',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+                TextSpan(
+                  text: 'apet',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.orange,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
+          backgroundColor: Color(0xFFFEFAE0),
         ),
         body: RefreshIndicator(
           // Yo chai pull to refresh ko lagi ho
           color: Colors.green,
-          backgroundColor: Colors.amberAccent,
+          backgroundColor: Colors.white,
           onRefresh: () async {
             ref.read(petListingViewModelProvider.notifier).resetState();
           },
@@ -72,7 +86,7 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
                     itemBuilder: (context, index) {
                       final petListings = state.petListings[index];
                       return ProductCard(
-                          image: '${ApiEndpoints.imageBaseUrl}public/listings/${petListings.petImage}',
+                          image: '${ApiEndpoints.imageBaseUrl}listings/${petListings.petImage}',
                           name: petListings.petName,
                           size: petListings.size,);
 
@@ -154,6 +168,71 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+class ProductCard extends StatelessWidget {
+  // providing the entity into product card
+  final String name;
+  final String size;
+  final String image;
+
+
+  ProductCard(
+      {required this.name,
+        required this.size,
+        required this.image
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    double imageHeight = screenSize.width > 600 ? 150.0 : 200.0;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+            child: Image.network(image,
+                height: imageHeight, width: double.infinity, fit: BoxFit.cover),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(name,
+                    style: TextStyle(
+                        fontSize: screenSize.width > 600 ? 18 : 16,
+                        fontWeight: FontWeight.bold)),
+                Text(size,
+                    style: TextStyle(
+                        fontSize: screenSize.width > 600 ? 16 : 14,
+                        color: Colors.grey)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
