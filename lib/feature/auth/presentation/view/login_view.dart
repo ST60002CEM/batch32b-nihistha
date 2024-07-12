@@ -1,6 +1,8 @@
+import 'package:adoptapet/feature/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/common/biometric_auth.dart';
 import '../view_model/auth_view_model.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -199,6 +201,34 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         ),
                       ),
                     ],
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    ),
+                    onPressed: () async {
+                      final authenticate =
+                      await BiometricAuth.authenticateWithBiometrics();
+                      if (authenticate) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeView(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.fingerprint,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 10),
+                        Text('Authenticate'),
+                      ],
+                    ),
                   ),
                 ],
 

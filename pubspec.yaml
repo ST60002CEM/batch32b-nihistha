@@ -57,6 +57,8 @@ dependencies:
   cached_network_image: ^3.1.0
   json_annotation: ^4.9.0
   mockito: ^5.4.4
+  all_sensors2: ^1.0.1
+  local_auth: ^2.2.0
 
 dev_dependencies:
   flutter_test:

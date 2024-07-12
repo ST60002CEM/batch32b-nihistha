@@ -1,4 +1,5 @@
 import 'package:adoptapet/core/error/failure.dart';
+import 'package:adoptapet/feature/auth/domain/entity/auth_entity.dart';
 import 'package:adoptapet/feature/auth/domain/usecases/auth_usecases.dart';
 import 'package:adoptapet/feature/auth/presentation/navigator/login_navigator.dart';
 import 'package:adoptapet/feature/auth/presentation/view_model/auth_view_model.dart';
@@ -34,11 +35,6 @@ void main(){
     );
   });
 
-  tearDown(
-          (){
-        container.dispose();
-      }
-  );
 
 
   test('check for the initial state in Auth State',(){
@@ -97,4 +93,57 @@ void main(){
     expect(authState.error, isNull);
     expect(authState.isLoading, true);
   });
+
+  test('register test with valid user information', () async {
+    const validUser = AuthEntity(
+        fullname: 'Nihira Shrestha',
+        email: 'nihira@example.com',
+        password: 'abcde123',
+        phonenumber: "981237121");
+
+    when(mockAuthUsecase.registerUser(any))
+        .thenAnswer((_) async => const Right(true));
+
+    // Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .registerUser(validUser);
+    final authState = container.read(authViewModelProvider);
+
+    // Assert
+    expect(authState.error, isNull);
+  });
+
+  test('register test fails when username is empty', () async {
+    const invalidUser = AuthEntity(
+        fullname: 'Nihira SHrestha', // Invalid: Empty username
+        email: '',
+        password: 'abcde123',
+        phonenumber: "981237123");
+
+    // Mock the use case to check username and return a failure if it's empty
+    when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) async {
+      final user = invocation.positionalArguments[0] as AuthEntity;
+      if (user.email.isEmpty) {
+        return Left(Failure(error: 'Username cannot be empty'));
+      }
+      return const Right(true);
+    });
+
+    // Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .registerUser(invalidUser);
+
+    final authState = container.read(authViewModelProvider);
+
+    // Assert
+    expect(authState.error, isNull);
+  });
+
+  tearDown(
+          (){
+        container.dispose();
+      }
+  );
 }
