@@ -5,26 +5,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../app/constants/api_endpoints.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/networking/remote/http_service.dart';
+import '../../domain/entity/pets_listing_entity.dart';
+import '../dto/pets_listing_dto.dart';
 
-final petListingDataSourceProvider = Provider.autoDispose(
-        (ref) => PetListingDataSource(ref.read(httpServiceProvider)));
+final petListingDataSourceProvider = Provider<PetListingDataSource>((ref) {
+  final dio = ref.read(httpServiceProvider);
+  return PetListingDataSource(
+    dio: dio,
+    petListingModel: ref.read(petListingModelProvider),
+  );
+});
 
 class PetListingDataSource {
-  final Dio _dio;
-  PetListingDataSource(this._dio);
-  Future<Either<Failure, List<PetListingModel>>> getPetListings(int page) async {
+  final Dio dio;
+  final PetListingModel petListingModel;
+  PetListingDataSource({ required this.dio,required this.petListingModel});
+  Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int page) async {
     try {
-      final response = await _dio.get(
+      final response = await dio.get(
         ApiEndpoints.listings,
         queryParameters: {
           '_page': page,
           '_limit': ApiEndpoints.limitPage,
         },
       );
-      // ProjectDto
-      final data = response.data as List;
-      final listings = data.map((e) => PetListingModel.fromJson(e)).toList();
-      return Right(listings);
+
+      PetsListingDto getPetsListingDto = PetsListingDto.fromJson(response.data);
+      return Right(petListingModel.toEntityList(getPetsListingDto.data));
     } on DioException catch (e) {
 
       return Left(

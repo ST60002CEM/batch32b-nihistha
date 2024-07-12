@@ -1,7 +1,9 @@
+import 'package:adoptapet/feature/pets_listing/domain/entity/pets_listing_entity.dart';
+
 import '../../data/model/pet_listing_model.dart';
 
 class PetListingState{
-  final List<PetListingModel> petListings;
+  final List<PetsListingEntity> petListings;
   final bool isLoading;
   final bool hasMaxReached;
   final int page;
@@ -20,7 +22,7 @@ class PetListingState{
         page: 0);
   }
   PetListingState copyWith({
-    List<PetListingModel>? petListings,
+    List<PetsListingEntity>? petListings,
     bool? isLoading,
     bool? hasMaxReached,
     int? page,

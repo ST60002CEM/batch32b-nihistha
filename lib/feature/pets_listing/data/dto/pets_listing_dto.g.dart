@@ -8,24 +8,14 @@ part of 'pets_listing_dto.dart';
 
 PetsListingDto _$PetsListingDtoFromJson(Map<String, dynamic> json) =>
     PetsListingDto(
-      petid: json['_id'] as String,
-      petName: json['petName'] as String,
-      petType: json['petType'] as String,
-      breed: json['breed'] as String,
-      gender: json['gender'] as String,
-      size: json['size'] as String,
-      aboutPet: json['aboutPet'] as String,
-      petImage: json['petImage'] as String,
+      success: json['success'] as bool,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => PetListingModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PetsListingDtoToJson(PetsListingDto instance) =>
     <String, dynamic>{
-      '_id': instance.petid,
-      'petName': instance.petName,
-      'petType': instance.petType,
-      'breed': instance.breed,
-      'gender': instance.gender,
-      'size': instance.size,
-      'aboutPet': instance.aboutPet,
-      'petImage': instance.petImage,
+      'success': instance.success,
+      'data': instance.data,
     };

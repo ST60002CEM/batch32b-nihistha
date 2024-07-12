@@ -1,9 +1,15 @@
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entity/pets_listing_entity.dart';
 
 part "pet_listing_model.g.dart";
+
+final petListingModelProvider = Provider<PetListingModel>((ref) {
+  return PetListingModel.empty();
+});
+
 @JsonSerializable()
 class PetListingModel{
   @JsonKey(name: "_id")
@@ -29,6 +35,19 @@ class PetListingModel{
 
   });
 
+  factory PetListingModel.empty() {
+    return const PetListingModel(
+      petid: '',
+      petName: '',
+      petImage: '',
+      petType: '',
+      breed: '',
+      gender: '',
+      aboutPet: '',
+      size: '',
+    );
+  }
+
   factory PetListingModel.fromJson(Map<String, dynamic> json) => _$PetListingModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PetListingModelToJson(this);
@@ -45,7 +64,7 @@ class PetListingModel{
     );
   }
 
-  // List<ProjectEntity> toEntityList(List<ProjectModel> models) => models.map((model) => model.toEntity()).toList();
+  List<PetsListingEntity> toEntityList(List<PetListingModel> models) => models.map((model) =>model.toEntity()).toList();
 
   @override
   List<Object?> get props => [
