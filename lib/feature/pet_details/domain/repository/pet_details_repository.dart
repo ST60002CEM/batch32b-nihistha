@@ -3,9 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/error/failure.dart';
+import '../../data/repository/pet_details_remote_repository.dart';
 
 final petDetailsRepository = Provider<IPetDetailsRepository>((ref) {
-  return ref.read(petListingRepositoryProvider);
+  return ref.read(petDetailsRemoteRepositoryProvider);
 });
 
 abstract class IPetDetailsRepository{
