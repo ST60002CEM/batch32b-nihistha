@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/error/failure.dart';
 import '../../data/repository/pet_listing_repository.dart';
 
-final authRepositoryProvider = Provider<IPetListingRepository>((ref) {
-  return ref.read(petListingRepositoryProvider);
+final petListingRepositoryProvider = Provider<IPetListingRepository>((ref) {
+  return ref.read(petListingRemoteRepositoryProvider);
 });
 
 abstract class IPetListingRepository {

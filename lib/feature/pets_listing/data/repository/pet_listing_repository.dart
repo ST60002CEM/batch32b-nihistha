@@ -6,7 +6,7 @@ import '../../domain/entity/pets_listing_entity.dart';
 import '../../domain/repository/pet_listing_repository.dart';
 import '../data_source/pet_listing_data_source.dart';
 
-final petListingRepositoryProvider = Provider<IPetListingRepository>((ref) {
+final petListingRemoteRepositoryProvider = Provider<IPetListingRepository>((ref) {
   return PetListingRepository(petListingDataSource: ref.read(petListingDataSourceProvider));
 });
 
