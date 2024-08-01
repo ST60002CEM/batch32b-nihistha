@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../theme/color.dart';
 
 class NotificationBox extends StatelessWidget {
   const NotificationBox({
@@ -20,19 +21,19 @@ class NotificationBox extends StatelessWidget {
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.brown,
+          color: AppColor.appBarColor,
           border: Border.all(color: Colors.grey.withOpacity(.3)),
         ),
         child: notifiedNumber > 0
             ? Badge(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColor.actionColor,
           child: SvgPicture.asset(
-            "assets/images/bell.svg",
+            "assets/icons/bell.svg",
             width: 25,
             height: 25,
           ),
         )
-            : SvgPicture.asset("assets/images/bell.svg"),
+            : SvgPicture.asset("assets/icons/bell.svg"),
       ),
     );
   }

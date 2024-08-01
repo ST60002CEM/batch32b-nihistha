@@ -1,4 +1,5 @@
 import 'package:adoptapet/feature/auth/presentation/view/login_view.dart';
+import 'package:adoptapet/feature/home/presentation/view/home.dart';
 import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Adoptapet',
-      home: const SplashView(),
+      home: const Home(),
     );
   }
 }
