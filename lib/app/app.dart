@@ -1,18 +1,24 @@
-import 'package:adoptapet/screen/dashboard_screen.dart';
-import 'package:adoptapet/screen/login_screen.dart';
+import 'package:adoptapet/feature/adoption_form/presentation/view/adoption_form_view.dart';
+import 'package:adoptapet/feature/auth/presentation/view/login_view.dart';
+import 'package:adoptapet/feature/home/presentation/view/home.dart';
+import 'package:adoptapet/feature/pet_details/presentation/view_model/pet_details_view_model.dart';
+import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
-import '../screen/register_screen.dart';
-import '../screen/splash_screen.dart';
+
+import '../feature/home/presentation/view/home_view.dart';
+import 'navigator_key/navigator_key.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SplashScreen(),
+    return MaterialApp(
+      navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
+      title: 'Adoptapet',
+      home: const AdoptionFormView(),
     );
   }
 }
