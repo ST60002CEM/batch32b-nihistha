@@ -59,6 +59,7 @@ dependencies:
   mockito: ^5.4.4
   all_sensors2: ^1.0.1
   local_auth: ^2.2.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

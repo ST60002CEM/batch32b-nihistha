@@ -1,5 +1,7 @@
+import 'package:adoptapet/feature/adoption_form/presentation/view/adoption_form_view.dart';
 import 'package:adoptapet/feature/auth/presentation/view/login_view.dart';
 import 'package:adoptapet/feature/home/presentation/view/home.dart';
+import 'package:adoptapet/feature/pet_details/presentation/view_model/pet_details_view_model.dart';
 import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class App extends StatelessWidget {
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Adoptapet',
-      home: const Home(),
+      home: const AdoptionFormView(),
     );
   }
 }

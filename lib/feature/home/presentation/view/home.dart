@@ -71,10 +71,10 @@ class _HomeState extends ConsumerState<Home> {
   }
 
   Widget _buildAppBar() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Expanded(
+        Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +128,7 @@ class _HomeState extends ConsumerState<Home> {
           onPressed: () {},
           style: ElevatedButton.styleFrom(
             fixedSize: Size(90, 90), // Increased size to accommodate icon and text
-            backgroundColor: Color(0xFF8B5E3C),
+            backgroundColor: Color(0xff84D5D8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
@@ -155,7 +155,7 @@ class _HomeState extends ConsumerState<Home> {
           onPressed: () {},
           style: ElevatedButton.styleFrom(
             fixedSize: Size(90, 90), // Increased size to accommodate icon and text
-            backgroundColor: Color(0xFF8B5E3C),
+            backgroundColor: Color(0xff84D5D8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
@@ -190,7 +190,7 @@ class _HomeState extends ConsumerState<Home> {
     },
     style: ElevatedButton.styleFrom(
       fixedSize: Size(90, 90), // Increased size to accommodate icon and text
-      backgroundColor: Color(0xFF8B5E3C),
+      backgroundColor: Color(0xff84D5D8),
       shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(30),
       ),
@@ -211,10 +211,8 @@ class _HomeState extends ConsumerState<Home> {
       ),
       ],
       ),
-      ],
     ),
     ],
-    ),
     );
   }
   _buildPets() {
