@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entity/application_entity.dart';
 
-
+part 'application_model.g.dart';
 @JsonSerializable()
 class ApplicationModel {
   @JsonKey(name: '_id')
@@ -13,7 +13,7 @@ class ApplicationModel {
   final String address;
   final String phonenumber;
   final String email;
-  final String haveDog;
+  final bool haveDog;
   final String livingSituation;
   final int age;
   final String userId;
@@ -43,11 +43,32 @@ class ApplicationModel {
 
   ApplicationEntity toEntity() {
     return ApplicationEntity(
-      id: id,
+      appid: appid,
       userId: userId,
       petId: petId,
-      status: status,
+      name: name,
+      address:address,
+      age: age,
+      phonenumber: phonenumber,
+      occupation: occupation,
+      livingSituation: livingSituation,
+      reasonsForAdopting: reasonsForAdopting,
+      email: email,
+      haveDog: haveDog
     );
   }
-
+  ApplicationModel fromEntity(ApplicationEntity entity) => ApplicationModel(
+    appid: entity.appid ?? '',
+    name: entity.name,
+    age: entity.age,
+    occupation: entity.occupation,
+    address: entity.address,
+    email: entity.email,
+    phonenumber: entity.phonenumber,
+    haveDog: entity.haveDog,
+    livingSituation: entity.livingSituation,
+    reasonsForAdopting: entity.reasonsForAdopting,
+    petId: entity.petId,
+    userId: entity.userId,
+  );
 }

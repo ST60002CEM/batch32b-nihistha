@@ -8,7 +8,7 @@ class ApplicationEntity{
   final int age;
   final String occupation;
   final String address;
-  final String haveDog;
+  final bool haveDog;
   final String livingSituation;
   final String reasonsForAdopting;
   final String petId;
