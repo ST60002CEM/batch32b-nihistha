@@ -9,6 +9,7 @@ part 'pets_listing_dto.g.dart';
 @JsonSerializable()
 class PetsListingDto{
   final bool success;
+  @JsonKey(name: 'listings', defaultValue: [])
   final List<PetListingModel> data;
 
   PetsListingDto({
