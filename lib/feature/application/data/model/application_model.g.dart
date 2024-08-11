@@ -9,7 +9,6 @@ part of 'application_model.dart';
 ApplicationModel _$ApplicationModelFromJson(Map<String, dynamic> json) =>
     ApplicationModel(
       appid: json['_id'] as String,
-      userId: json['userId'] as String,
       petId: json['petId'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
@@ -33,7 +32,6 @@ Map<String, dynamic> _$ApplicationModelToJson(ApplicationModel instance) =>
       'haveDog': instance.haveDog,
       'livingSituation': instance.livingSituation,
       'age': instance.age,
-      'userId': instance.userId,
       'petId': instance.petId,
       'reasonsForAdopting': instance.reasonsForAdopting,
     };

@@ -3,16 +3,20 @@ import 'package:adoptapet/feature/pets_listing/domain/usecase/pet_listing_usecas
 import 'package:adoptapet/feature/pets_listing/presentation/state/pet_listing_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../navigator/pet_listing_navigator.dart';
+
 final petListingViewModelProvider = StateNotifierProvider<PetListingViewModel,PetListingState>((ref){
-  final petListingDataSource = ref.read(petListingDataSourceProvider);
-  return PetListingViewModel(petListingUseCase: ref.read(petListingUseCaseProvider));
+  final navigator = ref.read(petListingViewNavigatorProvider);
+  final petListingUseCase = ref.read(petListingUseCaseProvider);
+  return PetListingViewModel(navigator,petListingUseCase);
 });
 
 
 class PetListingViewModel extends StateNotifier<PetListingState>{
   final PetListingUseCase petListingUseCase;
+  PetListingNavigator navigator;
 
-  PetListingViewModel({required this.petListingUseCase}):super(PetListingState.inital()){
+  PetListingViewModel(this.navigator,this.petListingUseCase):super(PetListingState.inital()){
     getPetListings();
 
   }
@@ -49,5 +53,8 @@ class PetListingViewModel extends StateNotifier<PetListingState>{
         );
 
     }
+  }
+  void openPetDetails(String petId) {
+    navigator.openPetDetailsView(petId);
   }
 }

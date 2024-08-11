@@ -3,9 +3,18 @@ import 'package:adoptapet/feature/application/domain/entity/application_entity.d
 import 'package:adoptapet/feature/application/presentation/view/application_view.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../app/constants/api_endpoints.dart';
 import '../../../../../core/error/failure.dart';
+import '../../../../../core/networking/remote/http_service.dart';
+
+final applicationRemoteDataSourceProvider = Provider(
+      (ref) => ApplicationRemoteDataSource(
+    dio: ref.read(httpServiceProvider),
+    applicationModel: ref.read(applicationModelProvider),
+  ),
+);
 
 class ApplicationRemoteDataSource{
   final Dio dio;
@@ -16,7 +25,7 @@ class ApplicationRemoteDataSource{
     required this.applicationModel,
   });
 
-  Future<Either<Failure, bool>> createApplication(ApplicationEntity application,String petId) async {
+  Future<Either<Failure, bool>> createApplication(ApplicationEntity application) async {
     try {
       var response = await dio.post(
         ApiEndpoints.application,

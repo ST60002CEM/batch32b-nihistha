@@ -1,9 +1,15 @@
 import 'package:adoptapet/feature/application/presentation/view/application_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entity/application_entity.dart';
 
 part 'application_model.g.dart';
+
+final applicationModelProvider = Provider<ApplicationModel>(
+      (ref) => ApplicationModel.empty(),
+);
+
 @JsonSerializable()
 class ApplicationModel {
   @JsonKey(name: '_id')
@@ -16,13 +22,11 @@ class ApplicationModel {
   final bool haveDog;
   final String livingSituation;
   final int age;
-  final String userId;
   final String petId;
   final String reasonsForAdopting;
 
   ApplicationModel({
     required this.appid,
-    required this.userId,
     required this.petId,
     required this.name,
     required this.email,
@@ -44,7 +48,6 @@ class ApplicationModel {
   ApplicationEntity toEntity() {
     return ApplicationEntity(
       appid: appid,
-      userId: userId,
       petId: petId,
       name: name,
       address:address,
@@ -57,6 +60,23 @@ class ApplicationModel {
       haveDog: haveDog
     );
   }
+
+  factory ApplicationModel.empty() {
+    return ApplicationModel(
+      appid: '',
+      petId: '',
+      name: '',
+      address: '',
+      age: 0,
+      phonenumber: '',
+      occupation: '',
+      livingSituation: '',
+      reasonsForAdopting: '',
+      email: '',
+      haveDog: false,
+    );
+  }
+
   ApplicationModel fromEntity(ApplicationEntity entity) => ApplicationModel(
     appid: entity.appid ?? '',
     name: entity.name,
@@ -69,6 +89,5 @@ class ApplicationModel {
     livingSituation: entity.livingSituation,
     reasonsForAdopting: entity.reasonsForAdopting,
     petId: entity.petId,
-    userId: entity.userId,
   );
 }
