@@ -6,7 +6,7 @@ import '../../../../app/navigator/navigator.dart';
 class ApplicationNavigator {}
 
 mixin ApplicationViewRoute {
-  openApplicationView() {
-    NavigateRoute.popAndPushRoute(const ApplicationView());
+  void openApplicationView(String petId) {
+    NavigateRoute.pushRoute(ApplicationView(petId:petId));
   }
 }

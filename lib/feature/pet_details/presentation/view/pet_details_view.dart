@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/constants/api_endpoints.dart';
+import '../../../application/presentation/view_model/application_view_model.dart';
 import '../view_model/pet_details_view_model.dart';
 
 class PetDetailsView extends ConsumerStatefulWidget {
@@ -70,7 +71,7 @@ class _PetDetailsViewState extends ConsumerState<PetDetailsView> {
           children: [
             Container(
               child: Image.network(
-                '${ApiEndpoints.imageBaseUrl}${details.petImage}',
+                '${ApiEndpoints.imageBaseUrl}listings/${details.petImage}',
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -127,7 +128,8 @@ class _PetDetailsViewState extends ConsumerState<PetDetailsView> {
                         ),
                       ),
                       onPressed: () {
-                        // Handle apply now button press
+                        ref.read(petDetailsViewModelProvider.notifier)
+                            .openApplicationView(details.petid!);
                       },
                       child: Text(
                         'Apply Now',

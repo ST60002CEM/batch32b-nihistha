@@ -14,7 +14,7 @@ class ApplicationEntity{
   final String petId;
 
   ApplicationEntity({
-    required this.appid,
+    this.appid,
     required this.name,
     required this.email,
     required this.age,

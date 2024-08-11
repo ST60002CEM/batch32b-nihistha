@@ -6,12 +6,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/common/my_snackbar.dart';
 import '../../domain/entity/application_entity.dart';
 
+final applicationViewModelProvider =
+StateNotifierProvider<ApplicationViewModel, ApplicationState>(
+      (ref) => ApplicationViewModel(
+    ref.read(applicationUseCaseProvider),
+  ),
+);
+
 class ApplicationViewModel extends StateNotifier<ApplicationState>{
   final ApplicationUseCase applicationUseCase;
 
   ApplicationViewModel( this.applicationUseCase): super(ApplicationState.initial());
 
-  Future<void> createApplication(ApplicationEntity application) async {
+  Future<void> submitApplication(ApplicationEntity application) async {
     state = state.copyWith(isLoading: true);
     var data = await applicationUseCase.createApplication(application);
     data.fold(

@@ -1,8 +1,12 @@
+import 'package:adoptapet/feature/application/presentation/view_model/application_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entity/application_entity.dart';
+
 class ApplicationView extends ConsumerStatefulWidget {
-  const ApplicationView({super.key});
+  final String petId;
+  const ApplicationView({required this.petId,super.key});
 
   @override
   ConsumerState<ApplicationView> createState() => _ApplicationViewState();
@@ -20,8 +24,8 @@ class _ApplicationViewState extends ConsumerState<ApplicationView> {
   final _phoneController = TextEditingController();
   final _haveDogController = TextEditingController();
   final _reasonForAdoptionController = TextEditingController();
-  String _haveDogs = 'No'; // Default value
-  String? _livingSituation = 'House';
+  bool _haveDogs = false; // Default value
+  String _livingSituation = 'House';
 
   @override
   void dispose() {
@@ -38,6 +42,14 @@ class _ApplicationViewState extends ConsumerState<ApplicationView> {
   // Form fields controllers (unchanged)
 
   int _currentStep = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(applicationViewModelProvider.notifier);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,15 +178,15 @@ class _ApplicationViewState extends ConsumerState<ApplicationView> {
                   Row(
                     children: [
                       Radio(
-                        value: 'Yes',
+                        value: true,
                         groupValue: _haveDogs,
-                        onChanged: (value) => setState(() => _haveDogs = value as String),
+                        onChanged: (value) => setState(() => _haveDogs =value as bool),
                       ),
                       Text('Yes'),
                       Radio(
-                        value: 'No',
+                        value: false,
                         groupValue: _haveDogs,
-                        onChanged: (value) => setState(() => _haveDogs = value as String),
+                        onChanged: (value) => setState(() => _haveDogs = value as bool),
                       ),
                       Text('No'),
                     ],
@@ -189,7 +201,7 @@ class _ApplicationViewState extends ConsumerState<ApplicationView> {
                         child: Text(value),
                       );
                     }).toList(),
-                    onChanged: (value) => setState(() => _livingSituation = value),
+                    onChanged: (value) => setState(() => _livingSituation = value as String),
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.home_work),
                     ),
@@ -213,7 +225,32 @@ class _ApplicationViewState extends ConsumerState<ApplicationView> {
                     validator: (value) => value!.isEmpty ? 'Please provide a reason for adoption' : null,
                   ),
                   SizedBox(height: 20),
-
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: (){
+                  var application = ApplicationEntity(
+                    name: _fullnameController.text,
+                    email: _emailController.text,
+                    phonenumber: _phoneController.text,
+                    address: _addressController.text,
+                    haveDog: _haveDogs,
+                    reasonsForAdopting: _reasonForAdoptionController.text,
+                    age: int.parse(_ageController.text),
+                    livingSituation: _livingSituation,
+                    petId: widget.petId,
+                    occupation: _occupationController.text,
+                  );
+                    ref
+                        .read(applicationViewModelProvider.notifier)
+                        .submitApplication(application);
+                    },
+                child: Text('Submit Application'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff84D5D8),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: TextStyle(fontSize: 18),
+                ),),
                 ],
               ),
             ),

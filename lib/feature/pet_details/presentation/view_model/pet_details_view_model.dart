@@ -1,18 +1,20 @@
+import 'package:adoptapet/feature/pet_details/presentation/navigator/pet_details_navigator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/usecase/pet_details_usecase.dart';
 import '../state/pet_details_state.dart';
 
-final petDetailsViewModelProvider =
-StateNotifierProvider<PetDetailsViewModel, PetDetailsState>(
-      (ref) => PetDetailsViewModel(
-    ref.read(petDetailsUseCaseProvider),
-  ),
-);
+
+final petDetailsViewModelProvider = StateNotifierProvider<PetDetailsViewModel,PetDetailsState>((ref){
+  final navigator = ref.read(petDetailsNavigatorProvider);
+  final petDetailsUseCase = ref.read(petDetailsUseCaseProvider);
+  return PetDetailsViewModel(navigator,petDetailsUseCase);
+});
 
 class PetDetailsViewModel extends StateNotifier<PetDetailsState> {
-  PetDetailsViewModel(this.petDetailsUseCase) : super(PetDetailsState.initial());
+  PetDetailsViewModel(this.navigator,this.petDetailsUseCase) : super(PetDetailsState.initial());
   final PetDetailsUseCase petDetailsUseCase;
+  PetDetailsNavigator navigator;
   Future getPetDetails(String petId) async {
     // String productId = '';// get the product Id
     state = state.copyWith(isLoading: true);
@@ -32,5 +34,8 @@ class PetDetailsViewModel extends StateNotifier<PetDetailsState> {
       },
     );
 
+  }
+  void openApplicationView(String petId) {
+    navigator.openApplicationView(petId);
   }
 }
