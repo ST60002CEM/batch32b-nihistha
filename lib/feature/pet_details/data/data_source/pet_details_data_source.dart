@@ -28,15 +28,12 @@ class PetDetailsDataSource{
 });
   Future<Either<Failure, PetDetailsEntity>> getPetDetails(String petId) async {
     try {
-      var response = await dio.get(
-        '${ApiEndpoints.petDetail}$petId',
-        // options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
+      final response = await dio.get('${ApiEndpoints.petDetail}/$petId');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         print('${response.data}');
-        final getAllPetDto = PetDetailsDto.fromJson(response.data);
-        final petDetails = getAllPetDto.data.toEntity();
+        final getAllPetDto = PetDetailsModel.fromJson(response.data);
+        final petDetails = getAllPetDto.toEntity();
         return Right(petDetails);
       } else {
         return Left(

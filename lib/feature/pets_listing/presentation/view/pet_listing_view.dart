@@ -14,11 +14,35 @@ class PetListingView extends ConsumerStatefulWidget {
 
 class _PetListingViewState extends ConsumerState<PetListingView> {
   final ScrollController _scrollController = ScrollController();
+  bool isLoading = false;
+  int currentPage = 1;
+  bool hasMore = true;
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+
+  void _loadMorePosts() async {
+    setState(() {
+      isLoading = true;
+    });
+    int nextPage = currentPage + 1;
+    final result =
+    await ref.read(petListingViewModelProvider.notifier).getPetListing(page: nextPage);
+    if (result) {
+      setState(() {
+        isLoading = false;
+        currentPage = nextPage;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+        hasMore = false;
+      });
+    }
   }
 
   @override
@@ -31,7 +55,7 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
           // Scroll garda feri last ma ho ki haina bhanera check garne ani data call garne
           if (_scrollController.position.extentAfter == 0) {
             // Data fetch gara api bata
-            ref.read(petListingViewModelProvider.notifier).getPetListings();
+            _loadMorePosts();
           }
         }
         return true;
@@ -88,7 +112,13 @@ class _PetListingViewState extends ConsumerState<PetListingView> {
                       return ProductCard(
                           image: '${ApiEndpoints.imageBaseUrl}listings/${petListings.petImage}',
                           name: petListings.petName,
-                          size: petListings.size,);
+                          size: petListings.size,
+
+                        onPressed: () {
+                          ref.read(petListingViewModelProvider.notifier)
+                              .openPetDetails(petListings.petid!);
+                        },
+                      );
                     },
                   ),
                 ),
@@ -110,12 +140,13 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String size;
   final String image;
-
+  final VoidCallback onPressed;
 
   ProductCard(
       {required this.name,
         required this.size,
-        required this.image
+        required this.image,
+        required this.onPressed
       });
 
   @override
@@ -160,6 +191,24 @@ class ProductCard extends StatelessWidget {
                     style: TextStyle(
                         fontSize: screenSize.width > 600 ? 16 : 14,
                         color: Colors.grey)),
+                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  onPressed: onPressed,
+                  child: Text(
+                    'View',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

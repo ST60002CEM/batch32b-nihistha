@@ -16,7 +16,7 @@ class PetListingRepository implements IPetListingRepository {
   PetListingRepository({required this.petListingDataSource});
 
   @override
-  Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int page) {
+  Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int? page) {
     // TODO: implement getPetListings
     return petListingDataSource.getPetListings(page);
   }

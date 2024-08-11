@@ -6,12 +6,10 @@ import '../model/pet_details_model.dart';
 part 'pet_details_dto.g.dart';
 @JsonSerializable()
 class PetDetailsDto{
-  final bool success;
   @JsonKey(name: 'listings')
   final PetDetailsModel data;
 
   PetDetailsDto({
-    required this.success,
     required this.data,
   });
 
