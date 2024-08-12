@@ -2,6 +2,7 @@
 import 'package:adoptapet/feature/auth/presentation/view/login_view.dart';
 import 'package:adoptapet/feature/home/presentation/view/home.dart';
 import 'package:adoptapet/feature/pet_details/presentation/view_model/pet_details_view_model.dart';
+import 'package:adoptapet/feature/profile/presentation/view/profile_view.dart';
 import 'package:adoptapet/feature/profile/presentation/view/user_profile_view.dart';
 import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';

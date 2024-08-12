@@ -86,42 +86,4 @@ class AuthRemoteDataSource{
       );
     }
   }
-  Future<Either<Failure, AuthEntity>> getCurrentUser() async {
-    try {
-      // Get the token from shared prefs
-      String? token;
-      var data = await userSharedPrefs.getUserToken();
-      data.fold(
-            (l) => token = null,
-            (r) => token = r!,
-      );
-
-      var response = await dio.get(
-        ApiEndpoints.currentUser,
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        GetCurrentUserDto getCurrentUserDto = GetCurrentUserDto.fromJson(response.data);
-
-        return Right(getCurrentUserDto.toEntity());
-      } else {
-        return Left(
-          Failure(
-            error: response.data["message"],
-            statusCode: response.statusCode.toString(),
-          ),
-        );
-      }
-    } on DioException catch (e) {
-      return Left(
-        Failure(
-          error: e.error.toString(),
-          statusCode: e.response?.statusCode.toString() ?? '0',
-        ),
-      );
-    }
-  }
 }

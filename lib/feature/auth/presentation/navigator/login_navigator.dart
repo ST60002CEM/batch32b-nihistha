@@ -1,6 +1,7 @@
 import 'package:adoptapet/feature/auth/presentation/navigator/register_navigator.dart';
 import 'package:adoptapet/feature/home/presentation/navigator/home_navigator.dart';
 import 'package:adoptapet/feature/home/presentation/view/home_view.dart';
+import 'package:adoptapet/feature/profile/presentation/navigator/profile_navigator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/navigator/navigator.dart';
@@ -8,7 +9,7 @@ import '../view/login_view.dart';
 
 final loginViewNavigatorProvider = Provider((ref) => LoginViewNavigator());
 
-class LoginViewNavigator with RegisterViewRoute,HomeViewRoute {}
+class LoginViewNavigator with RegisterViewRoute,ProfileViewRoute {}
 
 mixin LoginViewRoute {
   openLoginView() {
