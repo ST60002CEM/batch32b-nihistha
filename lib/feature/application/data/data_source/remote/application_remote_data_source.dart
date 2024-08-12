@@ -109,4 +109,30 @@ class ApplicationRemoteDataSource{
       );
     }
   }
+  Future<Either<Failure, String>> deleteApplication(String id) async {
+    try {
+      final response = await dio
+          .delete(ApiEndpoints.deleteApplication.replaceFirst("{appid}", id));
+      return Right(response.data.toString());
+      // Handle unexpected status codes
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
+
+  Future<Either<Failure, bool>> updateApplication(ApplicationEntity application) async {
+    try {
+      final response = await dio.put(
+        ApiEndpoints.updateApplication.replaceFirst('{appid}', application.appid!),
+        data: applicationModel.fromEntity(application),
+      );
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(Failure(error: 'Failed to update customer'));
+      }
+    } catch (e) {
+      return Left(Failure(error: e.toString()));
+    }
+  }
 }
