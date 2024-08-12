@@ -36,4 +36,32 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
     );
   }
 
+  Future getUserApplication() async{
+    if (state.isLoading) return false;
+
+    try {
+      state = state.copyWith(isLoading: true);
+      final result = await applicationUseCase.getUserApplication();
+
+      return result.fold(
+            (failure) {
+          state = state.copyWith(
+            isLoading: false,
+          );
+          return false;
+        },
+            (data) {
+          state = state.copyWith(
+            userapplication: [...state.userapplication, ...data],
+            isLoading: false,
+          );
+          return true;
+        },
+      );
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
+      // Handle error appropriately
+      return false;
+    }
+  }
 }

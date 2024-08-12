@@ -23,4 +23,7 @@ class ApplicationUseCase{
   Future<Either<Failure, bool>> createApplication(ApplicationEntity? application) async {
     return await applicationRepository.createApplication(application!);
   }
+  Future<Either<Failure, List<ApplicationEntity>>> getUserApplication() async {
+    return await applicationRepository.getUserApplication();
+  }
 }

@@ -23,5 +23,11 @@ class ApplicationRemoteRepository extends IApplicationRepository{
     // TODO: implement createApplication
     return applicationRemoteDataSource.createApplication(application!);
   }
+
+  @override
+  Future<Either<Failure, List<ApplicationEntity>>> getUserApplication() {
+    // TODO: implement getUserApplication
+    return applicationRemoteDataSource.getUserApplications();
+  }
   
 }

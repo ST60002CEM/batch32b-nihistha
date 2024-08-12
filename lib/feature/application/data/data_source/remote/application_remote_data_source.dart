@@ -78,5 +78,35 @@ class ApplicationRemoteDataSource{
       );
     }
   }
+  Future<Either<Failure, List<ApplicationEntity>>> getUserApplications() async {
+    try {
+      final response = await dio.get(ApiEndpoints.getUserApplication);
 
+      if (response.statusCode == 200) {
+        final List<dynamic> applicationsJson = response.data['applications'];
+        final applications = applicationsJson
+            .map((json) => ApplicationModel.fromJson(json).toEntity())
+            .toList();
+
+        return Right(applications);
+      } else if (response.statusCode == 404) {
+        // No applications found
+        return const Right([]);
+      } else {
+        return Left(
+          Failure(
+            error: 'Failed to fetch applications',
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.error.toString(),
+          statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    }
+  }
 }

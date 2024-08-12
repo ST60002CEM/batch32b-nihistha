@@ -17,6 +17,7 @@ class ApiEndpoints{
   static const String listings = "pets/pagination";
   static const String petDetail = 'pets/get_single_listing';
   static const String application ='user/application';
+  static const String getUserApplication = 'user/profile';
 
   static const limitPage = 4;
 }
