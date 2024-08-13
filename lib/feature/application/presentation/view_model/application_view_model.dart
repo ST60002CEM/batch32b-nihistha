@@ -3,20 +3,21 @@ import 'package:adoptapet/feature/application/presentation/state/application_sta
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/navigator/navigator.dart';
 import '../../../../core/common/my_snackbar.dart';
 import '../../domain/entity/application_entity.dart';
+import '../navigator/application_navigator.dart';
 
-final applicationViewModelProvider =
-StateNotifierProvider<ApplicationViewModel, ApplicationState>(
-      (ref) => ApplicationViewModel(
-    ref.read(applicationUseCaseProvider),
-  ),
-);
+final applicationViewModelProvider = StateNotifierProvider<ApplicationViewModel,ApplicationState>((ref){
+  final navigator = ref.read(applicationNavigatorProvider);
+  final applicationUsecase = ref.read(applicationUseCaseProvider);
+  return ApplicationViewModel(applicationUsecase,navigator);
+});
 
 class ApplicationViewModel extends StateNotifier<ApplicationState>{
   final ApplicationUseCase applicationUseCase;
-
-  ApplicationViewModel( this.applicationUseCase): super(ApplicationState.initial());
+  ApplicationNavigator navigator;
+  ApplicationViewModel( this.applicationUseCase,this.navigator): super(ApplicationState.initial());
 
   Future<void> submitApplication(ApplicationEntity application) async {
     state = state.copyWith(isLoading: true);
@@ -62,5 +63,42 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
       // Handle error appropriately
       return false;
     }
+  }
+
+  Future<void> deleteApplication(String id) async {
+    if (state.isLoading) return;
+    state = state.copyWith(isLoading: true);
+
+    final result = await applicationUseCase.deleteApplication(id);
+    result.fold(
+          (failure) {
+        // Show error message if deletion fails
+        showMySnackBar(
+            message: "Failed to delete product: ${failure.error}",
+            color: Colors.red);
+        state = state.copyWith(
+          isLoading: false,
+          error: failure.error,
+        );
+      },
+          (successMessage) {
+        // Show success message if deletion is successful
+        showMySnackBar(message: "Application deleted successfully");
+
+        // Remove the deleted product from the list
+        final updatedProductList = state.userapplication
+            .where((application) => application.appid != id)
+            .toList();
+
+        state = state.copyWith(
+          isLoading: false,
+          error: null,
+          userapplication: updatedProductList,
+        );
+      },
+    );
+  }
+  void openUpdateApplication(String petId){
+    navigator.openUpdateApplicationView(petId);
   }
 }

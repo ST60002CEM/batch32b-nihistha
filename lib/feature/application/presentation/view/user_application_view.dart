@@ -73,8 +73,8 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                // Navigator.of(context).pop();
-                // ref.read(applicationViewModelProvider.notifier).cancelApplication(application.appid);
+                Navigator.of(context).pop();
+                ref.read(applicationViewModelProvider.notifier).deleteApplication(application.appid!);
               },
             ),
           ],

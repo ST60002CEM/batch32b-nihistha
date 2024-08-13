@@ -26,4 +26,7 @@ class ApplicationUseCase{
   Future<Either<Failure, List<ApplicationEntity>>> getUserApplication() async {
     return await applicationRepository.getUserApplication();
   }
+  Future<Either<Failure,String>>deleteApplication(String id) async{
+    return await applicationRepository.deleteApplication(id);
+  }
 }
