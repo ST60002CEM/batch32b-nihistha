@@ -34,4 +34,9 @@ class ApplicationRemoteRepository extends IApplicationRepository{
     // TODO: implement deleteApplication
     return applicationRemoteDataSource.deleteApplication(id);
   }
+
+  @override
+  Future<Either<Failure, bool>> updateApplication(ApplicationEntity application) {
+    return applicationRemoteDataSource.updateApplication(application);
+  }
 }

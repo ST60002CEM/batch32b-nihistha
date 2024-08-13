@@ -98,6 +98,28 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
       },
     );
   }
+  // Future<void> updateApplication(ApplicationEntity customer) async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result = await applicationUseCase.u(customer);
+  //   result.fold(
+  //         (failure) {
+  //       showMySnackBar(message: failure.error, color: Colors.red);
+  //       state = state.copyWith(
+  //         isLoading: false,
+  //         error: failure.error,
+  //       );
+  //     },
+  //         (data) {
+  //       showMySnackBar(
+  //           message: "Customer updated successfully", color: Colors.green);
+  //       state = state.copyWith(
+  //         isLoading: false,
+  //         error: null,
+  //       );
+  //       refreshCustomers();
+  //     },
+  //   );
+  // }
   void openUpdateApplication(String petId){
     navigator.openUpdateApplicationView(petId);
   }

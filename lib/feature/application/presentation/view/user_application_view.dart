@@ -54,8 +54,7 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
   }
 
   void _editApplication(BuildContext context, ApplicationEntity application) {
-    // Navigate to edit application screen
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => EditApplicationScreen(application: application)));
+    ref.read(applicationViewModelProvider.notifier).openUpdateApplication(application.appid!);
   }
 
   void _cancelApplication(BuildContext context, ApplicationEntity application) {

@@ -4,9 +4,9 @@ import 'package:adoptapet/feature/application/domain/entity/application_entity.d
 import '../view_model/application_view_model.dart';
 
 class UpdateApplicationView extends ConsumerStatefulWidget {
-  final String petId;
+  final String id;
 
-  const UpdateApplicationView({Key? key, required this.petId}) : super(key: key);
+  const UpdateApplicationView({Key? key, required this.id}) : super(key: key);
 
   @override
   _AdoptionApplicationFormState createState() => _AdoptionApplicationFormState();
@@ -160,20 +160,19 @@ class _AdoptionApplicationFormState extends ConsumerState<UpdateApplicationView>
   }
 
   void _submitApplication() {
-    if (_formKey.currentState!.validate()) {
-      var application = ApplicationEntity(
-        name: _fullnameController.text,
-        email: _emailController.text,
-        phonenumber: _phoneController.text,
-        address: _addressController.text,
-        haveDog: _haveDogs,
-        reasonsForAdopting: _reasonForAdoptionController.text,
-        age: int.parse(_ageController.text),
-        livingSituation: _livingSituation,
-        petId: widget.petId,
-        occupation: _occupationController.text,
-      );
-      ref.read(applicationViewModelProvider.notifier).submitApplication(application);
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   var application = ApplicationEntity(
+    //     name: _fullnameController.text,
+    //     email: _emailController.text,
+    //     phonenumber: _phoneController.text,
+    //     address: _addressController.text,
+    //     haveDog: _haveDogs,
+    //     reasonsForAdopting: _reasonForAdoptionController.text,
+    //     age: int.parse(_ageController.text),
+    //     livingSituation: _livingSituation,
+    //     occupation: _occupationController.text,
+    //   );
+    //   ref.read(applicationViewModelProvider.notifier).submitApplication(application);
+    // }
   }
 }

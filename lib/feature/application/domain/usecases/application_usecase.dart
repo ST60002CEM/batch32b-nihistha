@@ -1,5 +1,6 @@
 import 'package:adoptapet/feature/application/domain/entity/application_entity.dart';
 import 'package:adoptapet/feature/application/domain/repository/application_repository.dart';
+import 'package:adoptapet/feature/profile/presentation/view/user_profile_view.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,5 +29,8 @@ class ApplicationUseCase{
   }
   Future<Either<Failure,String>>deleteApplication(String id) async{
     return await applicationRepository.deleteApplication(id);
+  }
+  Future<Either<Failure,bool>>updateApplication(ApplicationEntity application) async{
+    return await applicationRepository.updateApplication(application);
   }
 }
