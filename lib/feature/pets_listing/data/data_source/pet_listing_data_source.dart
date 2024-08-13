@@ -20,7 +20,7 @@ class PetListingDataSource {
   final Dio dio;
   final PetListingModel petListingModel;
   PetListingDataSource({ required this.dio,required this.petListingModel});
-  Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int page) async {
+  Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int? page) async {
     try {
       final response = await dio.get(
         ApiEndpoints.listings,

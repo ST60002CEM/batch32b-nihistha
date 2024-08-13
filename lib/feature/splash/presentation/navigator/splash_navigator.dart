@@ -1,4 +1,5 @@
 
+import 'package:adoptapet/feature/profile/presentation/navigator/profile_navigator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/navigator/login_navigator.dart';

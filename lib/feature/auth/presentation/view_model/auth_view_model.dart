@@ -62,6 +62,6 @@ class AuthViewModel extends StateNotifier<AuthState>{
   }
 
   void openHomeView() {
-    navigator.openHomeView();
+    navigator.openUserApplications();
   }
 }

@@ -16,7 +16,7 @@ class PetListingUseCase {
   PetListingUseCase(this._petListingRepository);
 
   Future<Either<Failure, List<PetsListingEntity>>> getPetListings(
-      int page) async {
-    return await _petListingRepository.getPetListings(page);
+      int? page) async {
+    return await _petListingRepository.getPetListings(page!);
   }
 }

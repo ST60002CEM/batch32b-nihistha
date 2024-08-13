@@ -26,17 +26,20 @@ class PetDetailsDataSource{
     required this.dio,
     required this.petDetailsModel
 });
-  Future<Either<Failure, PetDetailsEntity>> getPetDetails() async {
+  Future<Either<Failure, PetDetailsEntity>> getPetDetails(String petId) async {
     try {
-      final response = await dio.get(
-        ApiEndpoints.petDetail,
-
-      );
-
-      PetDetailsDto getPetsDetailsDto = PetDetailsDto.fromJson(response.data);
-      return Right(petDetailsModel.toEntity());
+      final response = await dio.get('${ApiEndpoints.petDetail}/$petId');
+      if (response.statusCode == 201) {
+        print('${response.data}');
+        final getAllPetDto = PetDetailsModel.fromJson(response.data);
+        final petDetails = getAllPetDto.toEntity();
+        return Right(petDetails);
+      } else {
+        return Left(
+          Failure(error: 'Product Failed to achieved', statusCode: '0'),
+        );
+      }
     } on DioException catch (e) {
-
       return Left(
         Failure(
           error: e.error.toString(),

@@ -3,51 +3,63 @@ import 'package:adoptapet/feature/pets_listing/domain/usecase/pet_listing_usecas
 import 'package:adoptapet/feature/pets_listing/presentation/state/pet_listing_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/constants/api_endpoints.dart';
+import '../navigator/pet_listing_navigator.dart';
+
 final petListingViewModelProvider = StateNotifierProvider<PetListingViewModel,PetListingState>((ref){
-  final petListingDataSource = ref.read(petListingDataSourceProvider);
-  return PetListingViewModel(petListingUseCase: ref.read(petListingUseCaseProvider));
+  final navigator = ref.read(petListingViewNavigatorProvider);
+  final petListingUseCase = ref.read(petListingUseCaseProvider);
+  return PetListingViewModel(navigator,petListingUseCase);
 });
 
 
 class PetListingViewModel extends StateNotifier<PetListingState>{
   final PetListingUseCase petListingUseCase;
+  PetListingNavigator navigator;
 
-  PetListingViewModel({required this.petListingUseCase}):super(PetListingState.inital()){
-    getPetListings();
+  PetListingViewModel(this.navigator,this.petListingUseCase):super(PetListingState.inital()){
+    getPetListing();
 
   }
 
   Future resetState() async{
     state = PetListingState.inital();
-    getPetListings();
+    await getPetListing();
   }
 
-  Future getPetListings() async{
-    state = state.copyWith(isLoading: true);
-    final currentState = state;
-    final page = currentState.page+1;
-    final petListings = currentState.petListings;
-    final hasReachedMax = currentState.hasMaxReached;
+  Future getPetListing({int? page}) async{
+    if (state.isLoading) return false;
 
-      if (!hasReachedMax) {
-        // get data from data source
-        final result = await petListingUseCase.getPetListings(page);
-        result.fold(
-              (failure) =>
-          state = state.copyWith(hasMaxReached: true, isLoading: false),
-              (data) {
-            if (data.isEmpty) {
-              state = state.copyWith(hasMaxReached: true);
-            } else {
-              state = state.copyWith(
-                petListings: [...petListings, ...data],
-                page: page,
-                isLoading: false,
-              );
-            }
-          },
-        );
+    try {
+      state = state.copyWith(isLoading: true);
+      final currentPage = page ?? state.page + 1;
+      final result = await petListingUseCase.getPetListings(currentPage);
 
+      return result.fold(
+            (failure) {
+          state = state.copyWith(
+            isLoading: false,
+            hasMaxReached: true, // Consider setting hasReachedMax based on actual logic
+          );
+          return false;
+        },
+            (data) {
+          state = state.copyWith(
+            petListings: [...state.petListings, ...data],
+            page: currentPage,
+            isLoading: false,
+            hasMaxReached: data.isEmpty || data.length < ApiEndpoints.limitPage,
+          );
+          return true;
+        },
+      );
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
+      // Handle error appropriately
+      return false;
     }
+  }
+  void openPetDetails(String petId) {
+    navigator.openPetDetailsView(petId);
   }
 }

@@ -15,9 +15,14 @@ class PetDetailsRemoteRepository implements IPetDetailsRepository{
   PetDetailsRemoteRepository({required this.petDetailsDataSource});
 
   @override
-  Future<Either<Failure, PetDetailsEntity>> getPetsDetails() {
-    // TODO: implement getPetsDetails
-    return petDetailsDataSource.getPetDetails();
+  Future<Either<Failure, PetDetailsEntity>> getPetDetails(String petId) {
+    return petDetailsDataSource.getPetDetails(petId);
   }
+  //
+  // @override
+  // Future<Either<Failure, PetDetailsEntity>> getPetsDetails(String petId) {
+  //   // TODO: implement getPetsDetails
+  //   return petDetailsDataSource.getPetDetails(String petId);
+  // }
 
 }

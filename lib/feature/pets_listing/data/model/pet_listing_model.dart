@@ -51,6 +51,7 @@ class PetListingModel{
   factory PetListingModel.fromJson(Map<String, dynamic> json) => _$PetListingModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PetListingModelToJson(this);
+
   PetsListingEntity toEntity(){
     return PetsListingEntity(
         petid:petid,
