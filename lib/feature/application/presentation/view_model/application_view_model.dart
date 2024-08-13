@@ -38,7 +38,6 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
 
   Future getUserApplication() async{
     if (state.isLoading) return false;
-
     try {
       state = state.copyWith(isLoading: true);
       final result = await applicationUseCase.getUserApplication();

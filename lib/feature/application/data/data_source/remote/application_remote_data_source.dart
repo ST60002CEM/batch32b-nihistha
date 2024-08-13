@@ -56,7 +56,6 @@ class ApplicationRemoteDataSource{
           "reasonsForAdopting":application.reasonsForAdopting,
           "petId":application.petId,
         },
-
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
@@ -80,14 +79,24 @@ class ApplicationRemoteDataSource{
   }
   Future<Either<Failure, List<ApplicationEntity>>> getUserApplications() async {
     try {
-      final response = await dio.get(ApiEndpoints.getUserApplication);
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+            (l) => token = null,
+            (r) => token = r!,
+      );
 
+      if (token == null) {
+        return Left(Failure(statusCode: '0', error: 'Token null'));
+      }
+      final response = await dio.get(ApiEndpoints.getUserApplication,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),);
+      print(response);
       if (response.statusCode == 200) {
         final List<dynamic> applicationsJson = response.data['applications'];
         final applications = applicationsJson
             .map((json) => ApplicationModel.fromJson(json).toEntity())
             .toList();
-
         return Right(applications);
       } else if (response.statusCode == 404) {
         // No applications found
@@ -111,6 +120,7 @@ class ApplicationRemoteDataSource{
   }
   Future<Either<Failure, String>> deleteApplication(String id) async {
     try {
+
       final response = await dio
           .delete(ApiEndpoints.deleteApplication.replaceFirst("{appid}", id));
       return Right(response.data.toString());

@@ -11,13 +11,12 @@ class ProfileModel{
   final String fullname;
   final String email;
   final String phonenumber;
-  final String password;
+
 
   ProfileModel({
     required this.id,
     required this.fullname,
     required this.phonenumber,
-    required this.password,
     required this.email,
   });
 
@@ -32,7 +31,7 @@ class ProfileModel{
         fullname: fullname,
         email: email,
         phonenumber: phonenumber,
-        password: password ?? ''
+
     );
   }
 }

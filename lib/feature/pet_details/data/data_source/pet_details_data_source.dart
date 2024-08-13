@@ -29,7 +29,6 @@ class PetDetailsDataSource{
   Future<Either<Failure, PetDetailsEntity>> getPetDetails(String petId) async {
     try {
       final response = await dio.get('${ApiEndpoints.petDetail}/$petId');
-
       if (response.statusCode == 201) {
         print('${response.data}');
         final getAllPetDto = PetDetailsModel.fromJson(response.data);
