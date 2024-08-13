@@ -19,7 +19,7 @@ class ApiEndpoints{
   static const String application ='user/application';
   static const String getUserApplication = 'user/profile';
   static const String deleteApplication ='user/delete_application/{id}';
-  static const String updateApplication = 'user/update_application';
+  static const String updateApplication = 'user/update-application/{id}';
 
   static const limitPage = 4;
 }

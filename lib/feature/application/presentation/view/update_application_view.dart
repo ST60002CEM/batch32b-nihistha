@@ -5,30 +5,82 @@ import '../view_model/application_view_model.dart';
 
 class UpdateApplicationView extends ConsumerStatefulWidget {
   final String id;
-
   const UpdateApplicationView({Key? key, required this.id}) : super(key: key);
 
   @override
-  _AdoptionApplicationFormState createState() => _AdoptionApplicationFormState();
+  _UpdateApplicationViewState createState() => _UpdateApplicationViewState();
 }
 
-class _AdoptionApplicationFormState extends ConsumerState<UpdateApplicationView> {
+class _UpdateApplicationViewState extends ConsumerState<UpdateApplicationView> {
   final _formKey = GlobalKey<FormState>();
-  final _fullnameController = TextEditingController();
-  final _ageController = TextEditingController();
-  final _occupationController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _reasonForAdoptionController = TextEditingController();
+  String petid='';
+  late TextEditingController _fullnameController;
+  late TextEditingController _ageController;
+  late TextEditingController _occupationController;
+  late TextEditingController _addressController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _reasonForAdoptionController;
   bool _haveDogs = false;
   String _livingSituation = 'House';
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeControllers();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadApplicationData();
+    });
+  }
+
+  void _initializeControllers() {
+    _fullnameController = TextEditingController();
+    _ageController = TextEditingController();
+    _occupationController = TextEditingController();
+    _addressController = TextEditingController();
+    _emailController = TextEditingController();
+    _phoneController = TextEditingController();
+    _reasonForAdoptionController = TextEditingController();
+  }
+
+  void _loadApplicationData() {
+    final applicationState = ref.read(applicationViewModelProvider);
+    final application = applicationState.userapplication.firstWhere(
+          (app) => app.appid == widget.id,
+    );
+    petid = application.petId;
+    if (application.appid != null) {
+      setState(() {
+        _fullnameController.text = application.name;
+        _ageController.text = application.age.toString();
+        _occupationController.text = application.occupation;
+        _addressController.text = application.address;
+        _emailController.text = application.email;
+        _phoneController.text = application.phonenumber;
+        _reasonForAdoptionController.text = application.reasonsForAdopting;
+        _haveDogs = application.haveDog;
+        _livingSituation = application.livingSituation;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _fullnameController.dispose();
+    _ageController.dispose();
+    _occupationController.dispose();
+    _addressController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _reasonForAdoptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adoption Application'),
+        title: Text('Update Application'),
         backgroundColor: Colors.white70,
       ),
       body: SingleChildScrollView(
@@ -142,8 +194,8 @@ class _AdoptionApplicationFormState extends ConsumerState<UpdateApplicationView>
               SizedBox(height: 24),
               Center(
                 child: ElevatedButton(
-                  onPressed: _submitApplication,
-                  child: Text('Submit Application'),
+                  onPressed: _updateApplication,
+                  child: Text('Update Application'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff84D5D8),
                     foregroundColor: Colors.white,
@@ -159,20 +211,22 @@ class _AdoptionApplicationFormState extends ConsumerState<UpdateApplicationView>
     );
   }
 
-  void _submitApplication() {
-    // if (_formKey.currentState!.validate()) {
-    //   var application = ApplicationEntity(
-    //     name: _fullnameController.text,
-    //     email: _emailController.text,
-    //     phonenumber: _phoneController.text,
-    //     address: _addressController.text,
-    //     haveDog: _haveDogs,
-    //     reasonsForAdopting: _reasonForAdoptionController.text,
-    //     age: int.parse(_ageController.text),
-    //     livingSituation: _livingSituation,
-    //     occupation: _occupationController.text,
-    //   );
-    //   ref.read(applicationViewModelProvider.notifier).submitApplication(application);
-    // }
+  void _updateApplication() {
+    if (_formKey.currentState!.validate()) {
+      var updatedApplication = ApplicationEntity(
+        appid: widget.id,
+        name: _fullnameController.text,
+        email: _emailController.text,
+        phonenumber: _phoneController.text,
+        address: _addressController.text,
+        haveDog: _haveDogs,
+        reasonsForAdopting: _reasonForAdoptionController.text,
+        age: int.parse(_ageController.text),
+        livingSituation: _livingSituation,
+        occupation: _occupationController.text,
+        petId: petid, // You might need to handle this field differently
+      );
+      ref.read(applicationViewModelProvider.notifier).updateApplication(updatedApplication);
+    }
   }
 }

@@ -94,6 +94,8 @@ flutter:
     - assets/icons/cat.svg
     - assets/icons/dog.svg
     - assets/icons/pet-border.svg
+    - assets/icons/profile.svg
+    - assets/icons/mail.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

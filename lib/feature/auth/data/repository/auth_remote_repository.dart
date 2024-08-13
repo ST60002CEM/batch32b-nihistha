@@ -26,5 +26,9 @@ class AuthRemoteRepository implements IAuthRepository{
     return _authRemoteDataSource.registerUser(user);
   }
 
+  @override
+  Future<Either<Failure, bool>> logout() async {
+    return await _authRemoteDataSource.logout();
+  }
 
 }
