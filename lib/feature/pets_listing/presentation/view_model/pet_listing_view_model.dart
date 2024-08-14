@@ -60,33 +60,33 @@ class PetListingViewModel extends StateNotifier<PetListingState>{
     }
   }
 
-  Future<void> searchPets({
-    String? query,
-    String? breed,
-    String? gender,
-    String? size,
-  }) async {
-    state = state.copyWith(
-      isLoading: true,
-      isSearching: true,
-      searchQuery: query,
-      searchBreed: breed,
-      searchGender: gender,
-      searchSize: size,
-    );
-
-    final result = await _petListingUseCase.searchPetListings(
-      query: query,
-      breed: breed,
-      gender: gender,
-      size: size,
-    );
-
-    result.fold(
-          (failure) => state = state.copyWith(isLoading: false, petListings: []),
-          (pets) => state = state.copyWith(isLoading: false, petListings: pets),
-    );
-  }
+  // Future<void> searchPets({
+  //   String? query,
+  //   String? breed,
+  //   String? gender,
+  //   String? size,
+  // }) async {
+  //   state = state.copyWith(
+  //     isLoading: true,
+  //     isSearching: true,
+  //     searchQuery: query,
+  //     searchBreed: breed,
+  //     searchGender: gender,
+  //     searchSize: size,
+  //   );
+  //
+  //   final result = await _petListingUseCase.searchPetListings(
+  //     query: query,
+  //     breed: breed,
+  //     gender: gender,
+  //     size: size,
+  //   );
+  //
+  //   result.fold(
+  //         (failure) => state = state.copyWith(isLoading: false, petListings: []),
+  //         (pets) => state = state.copyWith(isLoading: false, petListings: pets),
+  //   );
+  // }
 
   void openPetDetails(String petId) {
     navigator.openPetDetailsView(petId);
