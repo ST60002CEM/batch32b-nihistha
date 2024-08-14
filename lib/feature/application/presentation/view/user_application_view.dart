@@ -1,3 +1,4 @@
+import 'package:adoptapet/feature/pet_details/domain/entity/pet_details_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:adoptapet/feature/application/domain/entity/application_entity.dart';
@@ -7,6 +8,7 @@ import '../view_model/application_view_model.dart';
 
 class UserApplicationsView extends ConsumerStatefulWidget {
   const UserApplicationsView({Key? key}) : super(key: key);
+
 
   @override
   ConsumerState<UserApplicationsView> createState() => _UserApplicationsViewState();
@@ -18,7 +20,7 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
     super.initState();
     // You can perform any initialization here, e.g., fetching applications
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(applicationViewModelProvider.notifier).getUserApplication();
+      ref.read(applicationViewModelProvider.notifier).getUserApplicationWithPetDetails();
     });
   }
 
@@ -45,6 +47,7 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
         itemBuilder: (context, index) {
           return ApplicationCard(
             application: state.userapplication[index],
+            petDetails: state.petDetails,
             onEdit: () => _editApplication(context, state.userapplication[index]),
             onCancel: () => _cancelApplication(context, state.userapplication[index]),
           );
@@ -85,12 +88,14 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
 
 class ApplicationCard extends StatelessWidget {
   final ApplicationEntity application;
+  final PetDetailsEntity? petDetails;
   final VoidCallback onEdit;
   final VoidCallback onCancel;
 
   const ApplicationCard({
     Key? key,
     required this.application,
+    this.petDetails,
     required this.onEdit,
     required this.onCancel,
   }) : super(key: key);
@@ -104,7 +109,7 @@ class ApplicationCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pet ID: ${application.petId}', style: Theme.of(context).textTheme.titleLarge),
+            Text('Pet Name: ${petDetails!.petName}', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             Text('Name: ${application.name}'),
             Text('Email: ${application.email}'),

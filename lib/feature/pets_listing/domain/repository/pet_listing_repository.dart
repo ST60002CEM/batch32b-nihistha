@@ -10,4 +10,10 @@ final petListingRepositoryProvider = Provider<IPetListingRepository>((ref) {
 
 abstract class IPetListingRepository {
   Future<Either<Failure, List<PetsListingEntity>>> getPetListings(int? page);
+  Future<Either<Failure, List<PetsListingEntity>>> searchPetListings({
+    String? query,
+    String? breed,
+    String? gender,
+    String? size,
+  });
 }

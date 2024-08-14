@@ -5,19 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/navigator/navigator.dart';
 import '../../../../core/common/my_snackbar.dart';
+import '../../../pet_details/domain/usecase/pet_details_usecase.dart';
 import '../../domain/entity/application_entity.dart';
 import '../navigator/application_navigator.dart';
 
 final applicationViewModelProvider = StateNotifierProvider<ApplicationViewModel,ApplicationState>((ref){
   final navigator = ref.read(applicationNavigatorProvider);
   final applicationUsecase = ref.read(applicationUseCaseProvider);
-  return ApplicationViewModel(applicationUsecase,navigator);
+  final petDetailsUseCase = ref.read(petDetailsUseCaseProvider);
+  return ApplicationViewModel(applicationUsecase,navigator,petDetailsUseCase);
 });
 
 class ApplicationViewModel extends StateNotifier<ApplicationState>{
   final ApplicationUseCase applicationUseCase;
   ApplicationNavigator navigator;
-  ApplicationViewModel( this.applicationUseCase,this.navigator): super(ApplicationState.initial());
+  final PetDetailsUseCase petDetailsUseCase;
+  ApplicationViewModel( this.applicationUseCase,this.navigator,this.petDetailsUseCase): super(ApplicationState.initial());
 
   Future<void> submitApplication(ApplicationEntity application) async {
     state = state.copyWith(isLoading: true);
@@ -37,33 +40,54 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
     );
   }
 
-  Future getUserApplication() async{
-    if (state.isLoading) return false;
+  Future<void> getUserApplicationWithPetDetails() async {
+    if (state.isLoading) return;
     try {
       state = state.copyWith(isLoading: true);
-      final result = await applicationUseCase.getUserApplication();
 
-      return result.fold(
+      final result = await applicationUseCase.getUserApplication();
+      result.fold(
             (failure) {
           state = state.copyWith(
             isLoading: false,
+            error: failure.error,
           );
-          return false;
         },
-            (data) {
-          state = state.copyWith(
-            userapplication: [...state.userapplication, ...data],
-            isLoading: false,
+            (applications) async {
+          // Fetch pet details for each application
+          final petDetailsResults = await Future.wait(
+            applications.map((application) async {
+              final petResult = await petDetailsUseCase.getPetDetails(application.petId);
+              return petResult.fold(
+                    (failure) => null, // Handle the error appropriately
+                    (petDetails) => petDetails,
+              );
+            }),
           );
-          return true;
+
+          // Combine applications with pet details
+          final applicationsWithPetDetails = applications.map((application) {
+            final petDetails = petDetailsResults.firstWhere(
+                  (pet) => pet?.petid == application.petId,
+              orElse: () => null,
+            );
+            // return application.copyWith(petDetails: petDetails);
+          }).toList();
+
+          state = state.copyWith(
+            // userapplication: applicationsWithPetDetails,
+            isLoading: false,
+            error: null,
+          );
         },
       );
     } catch (e) {
       state = state.copyWith(isLoading: false);
       // Handle error appropriately
-      return false;
     }
   }
+
+
 
   Future<void> deleteApplication(String id) async {
     if (state.isLoading) return;

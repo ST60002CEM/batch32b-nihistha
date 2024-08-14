@@ -1,18 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/usecase/profile_usecase.dart';
+import '../navigator/profile_navigator.dart';
 import '../state/profile_state.dart';
 
 final profileViewModelProvider =
-StateNotifierProvider<ProfileViewModel, ProfileState>(
-      (ref) => ProfileViewModel(
-    ref.read(profileUsecaseProvider),
-  ),
+StateNotifierProvider<ProfileViewModel, ProfileState>((ref){
+  final navigator = ref.read(profileViewNavigatorProvider);
+  final profileUsecase = ref.read(profileUsecaseProvider);
+  return ProfileViewModel(profileUsecase,navigator);
+}
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState>{
-  ProfileViewModel(this.profileUsecase) : super(ProfileState.initial());
+  ProfileViewModel(this.profileUsecase,this.navigator) : super(ProfileState.initial());
   final ProfileUsecase profileUsecase;
+  final ProfileNavigator navigator;
 
 
   Future<void> fetchProfile() async {
@@ -28,5 +31,8 @@ class ProfileViewModel extends StateNotifier<ProfileState>{
         print("Profile loaded: ${profile.fullname}");
       },
     );
+  }
+  void openUserApplications() {
+    navigator.openUserApplications();
   }
 }

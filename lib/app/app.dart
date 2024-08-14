@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Adoptapet',
-      home:  RootApp(),
+      home:  SplashView(),
     );
   }
 }

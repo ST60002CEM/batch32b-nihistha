@@ -19,4 +19,17 @@ class PetListingUseCase {
       int? page) async {
     return await _petListingRepository.getPetListings(page!);
   }
+  Future<Either<Failure, List<PetsListingEntity>>> searchPetListings(
+      String? query,
+      String? breed,
+      String? gender,
+      String? size,) async{
+    return await _petListingRepository.searchPetListings(
+      query: query,
+      breed: breed,
+      gender: gender,
+      size: size,
+    );
+
+  }
 }
