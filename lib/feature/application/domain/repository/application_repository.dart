@@ -12,4 +12,6 @@ final applicationRepositoryProvider = Provider<IApplicationRepository>((ref) {
 abstract class IApplicationRepository{
   Future<Either<Failure, bool>> createApplication(ApplicationEntity? application);
   Future<Either<Failure,List<ApplicationEntity>>> getUserApplication();
+  Future<Either<Failure,String>> deleteApplication(String id);
+  Future<Either<Failure,bool>> updateApplication(ApplicationEntity application);
 }

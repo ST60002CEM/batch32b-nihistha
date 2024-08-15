@@ -36,4 +36,10 @@ class AuthLocalRepository implements IAuthRepository {
     throw UnimplementedError();
   }
 
+  @override
+  Future<Either<Failure, bool>> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
 }

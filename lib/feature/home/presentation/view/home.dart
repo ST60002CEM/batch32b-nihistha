@@ -50,8 +50,12 @@ class _HomeState extends ConsumerState<Home> {
             height: 25,
           ),
           _buildCategories(),
+          // const SizedBox(
+          //   height: 15,
+          // ),
+          // _buildDonationCard(),
           const SizedBox(
-            height: 25,
+            height: 35,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
@@ -215,6 +219,48 @@ class _HomeState extends ConsumerState<Home> {
     ],
     );
   }
+
+  _buildDonationCard() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Donate',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Donate and help us',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward, color: Colors.blue),
+          ],
+        ),
+      ),
+    );
+  }
+
   _buildPets() {
     double width = MediaQuery.of(context).size.width * .8;
     return CarouselSlider(

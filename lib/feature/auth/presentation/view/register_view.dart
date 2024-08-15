@@ -12,262 +12,219 @@ class RegisterView extends ConsumerStatefulWidget {
 }
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
-
-  final _key = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  static const Color themeColor = Color(0xFF84D5D8);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFEFAE0),
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
-          child: Image.asset('assets/images/logo.png'),
-        ),
-        title: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Adopt',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-              ),
-              TextSpan(
-                text: 'apet',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                ),
-              ),
-            ],
-          ),
-        ),
-        backgroundColor: Color(0xFFFEFAE0),
-      ),
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(),
       body: SingleChildScrollView(
-        child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Hi!",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Color(0xFF946E54),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              SizedBox(
-                height: 5,
-              ),
-              Text("Create new account",
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Color(0xFF946E54),
-                ),
-              ),
-              Padding(padding: const EdgeInsets.all(25),
-                child:Form(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _fullNameController,
-                        decoration: InputDecoration(
-                          labelText: 'Full Name',
-                          suffixIcon: Icon(
-                            Icons.person,
-                            size: 25,
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF946E54),
-                              width: 1.5,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(3)),
-                          ),
-                        ),
-                        validator: ((value){
-                          if(value == null || value.isEmpty){
-                            return "Please enter full name";
-                          }
-                          return null;
-                        }),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          suffixIcon: Icon(
-                            Icons.email,
-                            size: 25,
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF946E54),
-                              width: 1.5,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(3)),
-                          ),
-                        ),
-                        validator: ((value){
-                          if(value == null || value.isEmpty){
-                            return "Please enter email";
-                          }
-                          return null;
-                        }),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: _phoneController,
-                        decoration: InputDecoration(
-                          labelText: 'Phone Number',
-                          suffixIcon: Icon(
-                            Icons.vpn_key,
-                            size: 25,
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF946E54),
-                              width: 1.5,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(3)),
-                          ),
-                        ),
-                        validator: ((value){
-                          if(value == null || value.isEmpty){
-                            return "Please enter Phone number";
-                          }
-                          return null;
-                        }),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          suffixIcon: Icon(
-                            Icons.vpn_key,
-                            size: 25,
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF946E54),
-                              width: 1.5,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(3)),
-                          ),
-                        ),
-                        validator: ((value){
-                          if(value == null || value.isEmpty){
-                            return "Please enter password";
-                          }
-                          return null;
-                        }),
-                      ),
-                      // SizedBox(
-                      //   height: 40,
-                      // ),
-                      // TextFormField(
-                      //   decoration: InputDecoration(
-                      //     labelText: 'Confirm Password',
-                      //     suffixIcon: Icon(
-                      //       Icons.vpn_key,
-                      //       size: 25,
-                      //       color: Colors.black.withOpacity(0.7),
-                      //     ),
-                      //     enabledBorder: OutlineInputBorder(
-                      //       borderSide: const BorderSide(
-                      //         color: Color(0xFF946E54),
-                      //         width: 1.5,
-                      //         style: BorderStyle.solid,
-                      //       ),
-                      //     ),
-                      //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.all(Radius.circular(3)),
-                      //     ),
-                      //   ),
-                      // ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      SizedBox(
-                          height: 40,
-                          width: 130,
-                          child: ElevatedButton(onPressed: (){
-                            var user = AuthEntity(
-                              fullname: _fullNameController.text,
-                              email: _emailController.text,
-                              phonenumber: _phoneController.text,
-                              password: _passwordController.text,
-                            );
-                            ref
-                                .read(authViewModelProvider.notifier)
-                                .registerUser(user);
-                          },
-
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFD9A26C), // Background color
-                              ),
-                              child: Text("Sign in",
-                                style: TextStyle(
-                                    color: Color(0xFFFEFAE0),
-                                    fontSize: 20
-                                ),
-                              )
-                          )
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Text("Or Sign up with google",
-                style: TextStyle(
-                    fontSize: 18
-                ),
-              ),
-              SizedBox(width: 12), // Add some space between the text and the image
-              Image.asset(
-                'assets/images/google_logo.png', // Path to your Google logo
-                height: 40, // Adjust the height as needed
-              ),
+              SizedBox(height: 20),
+              _buildWelcomeText(),
+              SizedBox(height: 30),
+              _buildRegisterForm(),
+              SizedBox(height: 20),
+              _buildGoogleSignUp(),
             ],
           ),
         ),
       ),
+    );
+  }
 
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20.0),
+        child: Image.asset('assets/images/logo.png'),
+      ),
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Adopt',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            TextSpan(
+              text: 'apet',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: themeColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  Widget _buildWelcomeText() {
+    return Column(
+      children: [
+        Text(
+          "Hi!",
+          style: TextStyle(
+            fontSize: 32,
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          "Create a new account",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.black54,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRegisterForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          _buildTextField(
+            controller: _fullNameController,
+            label: 'Full Name',
+            icon: Icons.person,
+          ),
+          SizedBox(height: 16),
+          _buildTextField(
+            controller: _emailController,
+            label: 'Email',
+            icon: Icons.email,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: 16),
+          _buildTextField(
+            controller: _phoneController,
+            label: 'Phone Number',
+            icon: Icons.phone,
+            keyboardType: TextInputType.phone,
+          ),
+          SizedBox(height: 16),
+          _buildTextField(
+            controller: _passwordController,
+            label: 'Password',
+            icon: Icons.lock,
+            obscureText: true,
+          ),
+          SizedBox(height: 32),
+          _buildRegisterButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, color: themeColor),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: themeColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: themeColor, width: 2),
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter ${label.toLowerCase()}';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildRegisterButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            var user = AuthEntity(
+              fullname: _fullNameController.text,
+              email: _emailController.text,
+              phonenumber: _phoneController.text,
+              password: _passwordController.text,
+            );
+            ref.read(authViewModelProvider.notifier).registerUser(user);
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: themeColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          "Sign Up",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoogleSignUp() {
+    return Column(
+      children: [
+        Text(
+          "Or Sign up with Google",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black54,
+          ),
+        ),
+        SizedBox(height: 16),
+        GestureDetector(
+          onTap: () {
+            // TODO: Implement Google Sign Up
+          },
+          child: Image.asset(
+            'assets/images/google_logo.png',
+            height: 40,
+          ),
+        ),
+      ],
     );
   }
 }

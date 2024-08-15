@@ -1,3 +1,4 @@
+import 'package:adoptapet/feature/pet_details/domain/entity/pet_details_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:adoptapet/feature/application/domain/entity/application_entity.dart';
@@ -7,6 +8,7 @@ import '../view_model/application_view_model.dart';
 
 class UserApplicationsView extends ConsumerStatefulWidget {
   const UserApplicationsView({Key? key}) : super(key: key);
+
 
   @override
   ConsumerState<UserApplicationsView> createState() => _UserApplicationsViewState();
@@ -54,8 +56,7 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
   }
 
   void _editApplication(BuildContext context, ApplicationEntity application) {
-    // Navigate to edit application screen
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => EditApplicationScreen(application: application)));
+    ref.read(applicationViewModelProvider.notifier).openUpdateApplication(application.appid!);
   }
 
   void _cancelApplication(BuildContext context, ApplicationEntity application) {
@@ -73,8 +74,8 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                // Navigator.of(context).pop();
-                // ref.read(applicationViewModelProvider.notifier).cancelApplication(application.appid);
+                Navigator.of(context).pop();
+                ref.read(applicationViewModelProvider.notifier).deleteApplication(application.appid!);
               },
             ),
           ],
@@ -86,12 +87,14 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
 
 class ApplicationCard extends StatelessWidget {
   final ApplicationEntity application;
+  final PetDetailsEntity? petDetails;
   final VoidCallback onEdit;
   final VoidCallback onCancel;
 
   const ApplicationCard({
     Key? key,
     required this.application,
+    this.petDetails,
     required this.onEdit,
     required this.onCancel,
   }) : super(key: key);
@@ -105,7 +108,7 @@ class ApplicationCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pet ID: ${application.petId}', style: Theme.of(context).textTheme.titleLarge),
+            Text('Pet Name: ${petDetails!.petName}', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             Text('Name: ${application.name}'),
             Text('Email: ${application.email}'),

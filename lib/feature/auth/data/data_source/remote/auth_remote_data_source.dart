@@ -86,4 +86,12 @@ class AuthRemoteDataSource{
       );
     }
   }
+  Future<Either<Failure, bool>> logout() async {
+    try {
+      await userSharedPrefs.deleteUserToken();
+      return right(true);
+    } catch (e) {
+      return left(Failure(error: e.toString()));
+    }
+  }
 }

@@ -28,4 +28,15 @@ class ApplicationRemoteRepository extends IApplicationRepository{
   Future<Either<Failure, List<ApplicationEntity>>> getUserApplication() {
     return applicationRemoteDataSource.getUserApplications();
   }
+
+  @override
+  Future<Either<Failure, String>> deleteApplication(String id) {
+    // TODO: implement deleteApplication
+    return applicationRemoteDataSource.deleteApplication(id);
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateApplication(ApplicationEntity application) {
+    return applicationRemoteDataSource.updateApplication(application);
+  }
 }

@@ -95,12 +95,16 @@ class _ProfileUIState extends ConsumerState<ProfileUI> {
               ListTile(
                 leading: Icon(Icons.favorite, color: Colors.grey),
                 title: Text('Your Favorites'),
-                onTap: () {/* Your Favorites functionality */},
+                onTap: (
+
+                    ) {/* Your Favorites functionality */},
               ),
               ListTile(
                 leading: Icon(Icons.description, color: Colors.grey),
                 title: Text('My Applications'),
-                onTap: () {/* My Applications functionality */},
+                onTap: () {
+                  ref.read(profileViewModelProvider.notifier).openUserApplications();
+                },
               ),
               ListTile(
                 leading: Icon(Icons.lock_reset, color: Colors.grey),

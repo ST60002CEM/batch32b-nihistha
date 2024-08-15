@@ -42,4 +42,33 @@ class PetListingDataSource {
       );
     }
   }
+  Future<Either<Failure, List<PetsListingEntity>>> searchPetListings({
+    String? query,
+    String? breed,
+    String? gender,
+    String? size,
+  }) async {
+    try {
+      final response = await dio.get(
+        ApiEndpoints.search, // Make sure to add this endpoint to your ApiEndpoints
+        queryParameters: {
+          if (query != null) 'q': query,
+          if (breed != null) 'breed': breed,
+          if (gender != null) 'gender': gender,
+          if (size != null) 'size': size,
+        },
+      );
+
+      PetsListingDto searchPetsListingDto = PetsListingDto.fromJson(response.data);
+      return Right(petListingModel.toEntityList(searchPetsListingDto.data));
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.error.toString(),
+          statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    }
+  }
+
 }

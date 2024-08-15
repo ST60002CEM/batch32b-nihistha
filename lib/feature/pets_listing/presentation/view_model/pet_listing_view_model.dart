@@ -14,10 +14,10 @@ final petListingViewModelProvider = StateNotifierProvider<PetListingViewModel,Pe
 
 
 class PetListingViewModel extends StateNotifier<PetListingState>{
-  final PetListingUseCase petListingUseCase;
+  final PetListingUseCase _petListingUseCase;
   PetListingNavigator navigator;
 
-  PetListingViewModel(this.navigator,this.petListingUseCase):super(PetListingState.inital()){
+  PetListingViewModel(this.navigator,this._petListingUseCase):super(PetListingState.inital()){
     getPetListing();
 
   }
@@ -33,7 +33,7 @@ class PetListingViewModel extends StateNotifier<PetListingState>{
     try {
       state = state.copyWith(isLoading: true);
       final currentPage = page ?? state.page + 1;
-      final result = await petListingUseCase.getPetListings(currentPage);
+      final result = await _petListingUseCase.getPetListings(currentPage);
 
       return result.fold(
             (failure) {
@@ -59,6 +59,35 @@ class PetListingViewModel extends StateNotifier<PetListingState>{
       return false;
     }
   }
+
+  // Future<void> searchPets({
+  //   String? query,
+  //   String? breed,
+  //   String? gender,
+  //   String? size,
+  // }) async {
+  //   state = state.copyWith(
+  //     isLoading: true,
+  //     isSearching: true,
+  //     searchQuery: query,
+  //     searchBreed: breed,
+  //     searchGender: gender,
+  //     searchSize: size,
+  //   );
+  //
+  //   final result = await _petListingUseCase.searchPetListings(
+  //     query: query,
+  //     breed: breed,
+  //     gender: gender,
+  //     size: size,
+  //   );
+  //
+  //   result.fold(
+  //         (failure) => state = state.copyWith(isLoading: false, petListings: []),
+  //         (pets) => state = state.copyWith(isLoading: false, petListings: pets),
+  //   );
+  // }
+
   void openPetDetails(String petId) {
     navigator.openPetDetailsView(petId);
   }

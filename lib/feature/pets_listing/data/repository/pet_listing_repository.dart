@@ -21,5 +21,18 @@ class PetListingRepository implements IPetListingRepository {
     return petListingDataSource.getPetListings(page);
   }
 
+  @override
+  Future<Either<Failure, List<PetsListingEntity>>> searchPetListings({
+    String? query, String? breed, String? gender, String? size
+  }) {
+    // TODO: implement searchPetListings
+    return petListingDataSource.searchPetListings(
+      query: query,
+      breed: breed,
+      gender: gender,
+      size: size,
+    );
+  }
+
 
 }

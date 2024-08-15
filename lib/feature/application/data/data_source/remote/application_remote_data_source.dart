@@ -120,9 +120,8 @@ class ApplicationRemoteDataSource{
   }
   Future<Either<Failure, String>> deleteApplication(String id) async {
     try {
-
       final response = await dio
-          .delete(ApiEndpoints.deleteApplication.replaceFirst("{appid}", id));
+          .delete(ApiEndpoints.deleteApplication.replaceFirst("{id}", id));
       return Right(response.data.toString());
       // Handle unexpected status codes
     } on DioException catch (e) {
@@ -133,7 +132,7 @@ class ApplicationRemoteDataSource{
   Future<Either<Failure, bool>> updateApplication(ApplicationEntity application) async {
     try {
       final response = await dio.put(
-        ApiEndpoints.updateApplication.replaceFirst('{appid}', application.appid!),
+        ApiEndpoints.updateApplication.replaceFirst('{id}', application.appid!),
         data: applicationModel.fromEntity(application),
       );
       if (response.statusCode == 200) {
