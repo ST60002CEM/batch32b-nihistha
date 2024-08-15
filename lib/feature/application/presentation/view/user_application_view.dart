@@ -20,7 +20,7 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
     super.initState();
     // You can perform any initialization here, e.g., fetching applications
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(applicationViewModelProvider.notifier).getUserApplicationWithPetDetails();
+      ref.read(applicationViewModelProvider.notifier).getUserApplication();
     });
   }
 
@@ -47,7 +47,6 @@ class _UserApplicationsViewState extends ConsumerState<UserApplicationsView> {
         itemBuilder: (context, index) {
           return ApplicationCard(
             application: state.userapplication[index],
-            petDetails: state.petDetails,
             onEdit: () => _editApplication(context, state.userapplication[index]),
             onCancel: () => _cancelApplication(context, state.userapplication[index]),
           );

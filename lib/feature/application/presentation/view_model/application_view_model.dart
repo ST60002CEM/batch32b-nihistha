@@ -39,53 +39,32 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
       },
     );
   }
-
-  Future<void> getUserApplicationWithPetDetails() async {
-    if (state.isLoading) return;
-    try {
-      state = state.copyWith(isLoading: true);
-
-      final result = await applicationUseCase.getUserApplication();
-      result.fold(
-            (failure) {
-          state = state.copyWith(
-            isLoading: false,
-            error: failure.error,
-          );
-        },
-            (applications) async {
-          // Fetch pet details for each application
-          final petDetailsResults = await Future.wait(
-            applications.map((application) async {
-              final petResult = await petDetailsUseCase.getPetDetails(application.petId);
-              return petResult.fold(
-                    (failure) => null, // Handle the error appropriately
-                    (petDetails) => petDetails,
-              );
-            }),
-          );
-
-          // Combine applications with pet details
-          final applicationsWithPetDetails = applications.map((application) {
-            final petDetails = petDetailsResults.firstWhere(
-                  (pet) => pet?.petid == application.petId,
-              orElse: () => null,
-            );
-            // return application.copyWith(petDetails: petDetails);
-          }).toList();
-
-          state = state.copyWith(
-            // userapplication: applicationsWithPetDetails,
-            isLoading: false,
-            error: null,
-          );
-        },
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false);
-      // Handle error appropriately
-    }
-  }
+  //
+  // Future<void> getUserApplicationWithPetDetails() async {
+  //   if (state.isLoading) return;
+  //   try {
+  //     state = state.copyWith(isLoading: true);
+  //     final result = await applicationUseCase.getUserApplication();
+  //     result.fold(
+  //           (failure) {
+  //         state = state.copyWith(
+  //           isLoading: false,
+  //           error: failure.error,
+  //         );
+  //       },
+  //           (applications) async {
+  //             state.copyWith(userapplication:applications);
+  //           });
+  //         final applicationsWithPetDetails = state.userapplication.map((application) {
+  //           final petDetails = petDetailsUseCase.getPetDetails(application.petId);
+  //           state.copyWith(petDetails : petDetails);
+  //           // return application.copyWith(petDetails: petDetails);
+  //         });
+  //   } catch (e) {
+  //     state = state.copyWith(isLoading: false);
+  //     // Handle error appropriately
+  //   }
+  // }
 
 
 

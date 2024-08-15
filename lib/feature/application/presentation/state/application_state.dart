@@ -7,7 +7,7 @@ class ApplicationState {
   final bool isLoading;
   final String? error;
   final List<ApplicationEntity> userapplication;
-  final PetDetailsEntity? petDetails;
+  final List<PetDetailsEntity>? petDetails;
 
   ApplicationState({
     required this.isLoading,
@@ -21,7 +21,7 @@ class ApplicationState {
       isLoading: false,
       error: null,
       userapplication: [],
-      petDetails: null
+      petDetails: []
     );
   }
 
@@ -29,7 +29,7 @@ class ApplicationState {
     bool? isLoading,
     String? error,
     List<ApplicationEntity>? userapplication,
-    PetDetailsEntity? petDetails
+    List<PetDetailsEntity>? petDetails
   }) {
     return ApplicationState(
       isLoading: isLoading ?? this.isLoading,

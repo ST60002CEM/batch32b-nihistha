@@ -5,11 +5,13 @@ import 'package:adoptapet/feature/pet_details/presentation/view_model/pet_detail
 import 'package:adoptapet/feature/profile/presentation/view/profile_view.dart';
 import 'package:adoptapet/feature/profile/presentation/view/user_profile_view.dart';
 import 'package:adoptapet/feature/root/presentation/view/root_view.dart';
+import 'package:adoptapet/feature/splash/presentation/view/splash.dart';
 import 'package:adoptapet/feature/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
 
 import '../feature/home/presentation/view/home_view.dart';
+import '../feature/meet/presentation/view/meet_view.dart';
 import 'navigator_key/navigator_key.dart';
 
 class App extends StatelessWidget {
@@ -21,7 +23,7 @@ class App extends StatelessWidget {
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Adoptapet',
-      home:  SplashView(),
+      home:  Splash(),
     );
   }
 }

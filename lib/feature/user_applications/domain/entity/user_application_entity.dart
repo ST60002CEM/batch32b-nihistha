@@ -1,37 +1,48 @@
+import 'package:adoptapet/app/app.dart';
+
 import '../../../pet_details/domain/entity/pet_details_entity.dart';
 
-class ApplicationEntity {
+class UserApplicationEntity{
   final String? appid;
-  final String? petId;
-  final String? name;
-  final String? email;
-  final String? phonenumber;
-  final PetDetailsEntity? petDetails; // Add this line if you want to manage pet details
+  final String name;
+  final String email;
+  final String phonenumber;
+  final int age;
+  final String occupation;
+  final String address;
+  final bool haveDog;
+  final String livingSituation;
+  final String reasonsForAdopting;
+  final PetDetailsEntity? petDetails;
 
-  ApplicationEntity({
+  UserApplicationEntity({
     this.appid,
-    this.petId,
-    this.name,
-    this.email,
-    this.phonenumber,
-    this.petDetails,
+    required this.name,
+    required this.email,
+    required this.age,
+    required this.occupation,
+    required this.address,
+    required this.phonenumber,
+    required this.haveDog,
+    required this.livingSituation,
+    required this.reasonsForAdopting,
+    this.petDetails
   });
 
-  ApplicationEntity copyWith({
-    String? appid,
-    String? petId,
-    String? name,
-    String? email,
-    String? phonenumber,
-    PetDetailsEntity? petDetails,
-  }) {
-    return ApplicationEntity(
-      appid: appid ?? this.appid,
-      petId: petId ?? this.petId,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      phonenumber: phonenumber ?? this.phonenumber,
-      petDetails: petDetails ?? this.petDetails,
-    );
-  }
+
+
+  @override
+  List<Object?> get props =>
+      [appid,
+        name,
+        phonenumber,
+        email,
+        address,
+        occupation,
+        age,
+        haveDog,
+        reasonsForAdopting,
+        livingSituation,
+        petDetails,
+      ];
 }
