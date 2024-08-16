@@ -24,6 +24,8 @@ class ApplicationModel {
   final int age;
   final String petId;
   final String reasonsForAdopting;
+  final String? isApproved;
+  final String? adminMessage;
 
   ApplicationModel({
     required this.appid,
@@ -37,7 +39,8 @@ class ApplicationModel {
     required this.livingSituation,
     required this.reasonsForAdopting,
     required this.haveDog,
-
+     this.adminMessage,
+     this.isApproved,
   });
 
   factory ApplicationModel.fromJson(Map<String, dynamic> json) =>
@@ -57,7 +60,9 @@ class ApplicationModel {
       livingSituation: livingSituation,
       reasonsForAdopting: reasonsForAdopting,
       email: email,
-      haveDog: haveDog
+      haveDog: haveDog,
+      isApproved: isApproved,
+      adminMessage: adminMessage
     );
   }
 
@@ -74,6 +79,8 @@ class ApplicationModel {
       reasonsForAdopting: '',
       email: '',
       haveDog: false,
+      isApproved: null,
+      adminMessage: null
     );
   }
 
@@ -89,5 +96,7 @@ class ApplicationModel {
     livingSituation: entity.livingSituation,
     reasonsForAdopting: entity.reasonsForAdopting,
     petId: entity.petId,
+    adminMessage: entity.adminMessage??'',
+    isApproved: entity.isApproved??''
   );
 }

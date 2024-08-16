@@ -19,6 +19,8 @@ ApplicationModel _$ApplicationModelFromJson(Map<String, dynamic> json) =>
       livingSituation: json['livingSituation'] as String,
       reasonsForAdopting: json['reasonsForAdopting'] as String,
       haveDog: json['haveDog'] as bool,
+      adminMessage: json['adminMessage'] as String?,
+      isApproved: json['isApproved'] as String?,
     );
 
 Map<String, dynamic> _$ApplicationModelToJson(ApplicationModel instance) =>
@@ -34,4 +36,6 @@ Map<String, dynamic> _$ApplicationModelToJson(ApplicationModel instance) =>
       'age': instance.age,
       'petId': instance.petId,
       'reasonsForAdopting': instance.reasonsForAdopting,
+      'isApproved': instance.isApproved,
+      'adminMessage': instance.adminMessage,
     };

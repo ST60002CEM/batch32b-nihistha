@@ -8,14 +8,15 @@ part of 'application_dto.dart';
 
 ApplicationDto _$ApplicationDtoFromJson(Map<String, dynamic> json) =>
     ApplicationDto(
-      data: ApplicationModel.fromJson(json['data'] as Map<String, dynamic>),
+      data: ApplicationModel.fromJson(
+          json['applications'] as Map<String, dynamic>),
       success: json['success'] as bool,
       message: json['message'] as String,
     );
 
 Map<String, dynamic> _$ApplicationDtoToJson(ApplicationDto instance) =>
     <String, dynamic>{
-      'data': instance.data,
+      'applications': instance.data,
       'success': instance.success,
       'message': instance.message,
     };

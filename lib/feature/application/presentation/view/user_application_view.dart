@@ -108,7 +108,7 @@ class ApplicationCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pet Name: ${petDetails!.petName}', style: Theme.of(context).textTheme.titleLarge),
+            // Text('Pet Name: ${petDetails!.petName}', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             Text('Name: ${application.name}'),
             Text('Email: ${application.email}'),

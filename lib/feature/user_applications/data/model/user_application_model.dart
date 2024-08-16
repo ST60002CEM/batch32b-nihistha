@@ -24,8 +24,10 @@
 //   final String livingSituation;
 //   final int age;
 //   final String reasonsForAdopting;
+//
 //   @JsonKey(name:'pet')
 //   final PetDetailsEntity? petDetails;
+//
 //   UserApplicationModel({
 //     required this.appid,
 //     required this.name,

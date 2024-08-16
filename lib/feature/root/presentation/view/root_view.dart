@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../app/constants/constant.dart';
 import '../../../../core/common/theme/color.dart';
 import '../../../../core/common/widgets/bottombar_item.dart';
+import '../../../application/presentation/view/mail_view.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class RootApp extends StatefulWidget {
 }
 
 class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
+
   int _activeTab = 0;
   final List barItems = [
     {
@@ -30,11 +32,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/mail.svg",
       "active_icon": "assets/icons/chat.svg",
-      "page": Container(
-        child: Center(
-          child: Text("Setting Page"),
-        ),
-      ),
+      "page": MailView()
     },
     {
       "icon": "assets/icons/profile.svg",

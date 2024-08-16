@@ -1,4 +1,5 @@
 
+import 'package:adoptapet/feature/auth/presentation/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -51,7 +52,7 @@ class Splash extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (_) => const Home()));
+                          context, MaterialPageRoute(builder: (_) => const LoginView()));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,

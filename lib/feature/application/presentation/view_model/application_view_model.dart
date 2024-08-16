@@ -123,31 +123,35 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
       },
     );
   }
-  Future getUserApplication() async{
-    if (state.isLoading) return false;
+  Future<void> getUserApplication() async {
+    if (state.isLoading) return;
+
     try {
-      state = state.copyWith(isLoading: true);
+      state = state.copyWith(isLoading: true, error: null);
       final result = await applicationUseCase.getUserApplication();
 
-      return result.fold(
+      result.fold(
             (failure) {
           state = state.copyWith(
             isLoading: false,
+            error: failure.error,
           );
-          return false;
         },
             (data) {
           state = state.copyWith(
-            userapplication: [...state.userapplication, ...data],
+            userapplication: data,  // Replace existing data instead of appending
             isLoading: false,
+            error: null,
           );
-          return true;
         },
       );
     } catch (e) {
-      state = state.copyWith(isLoading: false);
-      // Handle error appropriately
-      return false;
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),  // Set the error state
+      );
+      // Log the error or handle it as needed
+      print('Error in getUserApplication: $e');
     }
   }
   void openUpdateApplication(String id){

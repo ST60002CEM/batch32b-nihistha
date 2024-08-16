@@ -9,7 +9,7 @@ part 'application_dto.g.dart';
 @JsonSerializable()
 class ApplicationDto {
 
-  @JsonKey(name: "data")
+  @JsonKey(name: "applications")
   final ApplicationModel data;
   final bool success;
   final String message;

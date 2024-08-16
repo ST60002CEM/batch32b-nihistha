@@ -11,6 +11,8 @@ class ApplicationEntity{
   final bool haveDog;
   final String livingSituation;
   final String reasonsForAdopting;
+  final String? isApproved;
+  final String? adminMessage;
   final String petId;
 
   ApplicationEntity({
@@ -24,8 +26,9 @@ class ApplicationEntity{
     required this.haveDog,
     required this.livingSituation,
     required this.reasonsForAdopting,
-    required this.petId
-
+    required this.petId,
+    this.isApproved,
+    this.adminMessage,
 });
 
 
@@ -43,5 +46,7 @@ class ApplicationEntity{
         reasonsForAdopting,
         livingSituation,
         petId,
+        isApproved,
+        adminMessage,
         ];
 }

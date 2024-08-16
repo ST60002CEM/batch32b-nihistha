@@ -94,6 +94,9 @@ class ApplicationRemoteDataSource{
       print(response);
       if (response.statusCode == 200) {
         final List<dynamic> applicationsJson = response.data['applications'];
+        if (applicationsJson == null) {
+          return Left(Failure(error: 'Applications data is null'));
+        }
         final applications = applicationsJson
             .map((json) => ApplicationModel.fromJson(json).toEntity())
             .toList();
