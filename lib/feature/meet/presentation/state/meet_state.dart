@@ -1,26 +1,27 @@
-class AuthState {
+class MeetState {
   final bool isLoading;
   final String? error;
 
 
-  AuthState({
+  MeetState({
     required this.isLoading,
     this.error,
 
   });
 
-  factory AuthState.initial() {
-    return AuthState(
+  factory MeetState.initial() {
+    return MeetState(
       isLoading: false,
       error: null,
     );
   }
 
-  AuthState copyWith({
+  MeetState copyWith({
     bool? isLoading,
     String? error,
+    String? imageName,
   }) {
-    return AuthState(
+    return MeetState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
 

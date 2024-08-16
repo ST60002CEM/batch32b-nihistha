@@ -21,14 +21,26 @@ class MeetRemoteDataSource{
 
   Future<Either<Failure,bool>> scheduleMeet(MeetEntity meet) async{
     try{
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+            (l) => token = null,
+            (r) => token = r!,
+      );
+
+      if (token == null) {
+        return Left(Failure(statusCode: '0', error: 'Token null'));
+      }
       Response response = await dio.post(
           ApiEndpoints.meet,
           data: {
             "scheduledDate" : meet.scheduledDate,
             "pickupTime": meet.pickupTime,
-            "petId": meet.petId,
-          }
+            "pet": meet.petId,
+          },
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+
       if(response.statusCode == 200){
         return const Right(true);
       }else{

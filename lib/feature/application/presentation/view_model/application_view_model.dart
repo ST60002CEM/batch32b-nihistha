@@ -1,5 +1,8 @@
 import 'package:adoptapet/feature/application/domain/usecases/application_usecase.dart';
+import 'package:adoptapet/feature/application/presentation/navigator/mail_navigator.dart';
 import 'package:adoptapet/feature/application/presentation/state/application_state.dart';
+import 'package:adoptapet/feature/meet/domain/repository/meet_repository.dart';
+import 'package:adoptapet/feature/meet/presentation/navigator/meet_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,14 +16,16 @@ final applicationViewModelProvider = StateNotifierProvider<ApplicationViewModel,
   final navigator = ref.read(applicationNavigatorProvider);
   final applicationUsecase = ref.read(applicationUseCaseProvider);
   final petDetailsUseCase = ref.read(petDetailsUseCaseProvider);
-  return ApplicationViewModel(applicationUsecase,navigator,petDetailsUseCase);
+  final mailNavigator = ref.read(mailNavigatorProvider);
+  return ApplicationViewModel(applicationUsecase,mailNavigator,navigator,petDetailsUseCase);
 });
 
 class ApplicationViewModel extends StateNotifier<ApplicationState>{
   final ApplicationUseCase applicationUseCase;
   ApplicationNavigator navigator;
+  MailNavigator mailNavigator;
   final PetDetailsUseCase petDetailsUseCase;
-  ApplicationViewModel( this.applicationUseCase,this.navigator,this.petDetailsUseCase): super(ApplicationState.initial());
+  ApplicationViewModel( this.applicationUseCase,this.mailNavigator, this.navigator,this.petDetailsUseCase): super(ApplicationState.initial());
 
   Future<void> submitApplication(ApplicationEntity application) async {
     state = state.copyWith(isLoading: true);
@@ -156,5 +161,8 @@ class ApplicationViewModel extends StateNotifier<ApplicationState>{
   }
   void openUpdateApplication(String id){
     navigator.openUpdateApplicationView(id);
+  }
+  void openMeet(String petId){
+    mailNavigator.openMeetView(petId);
   }
 }
