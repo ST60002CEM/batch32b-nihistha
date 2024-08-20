@@ -4,7 +4,7 @@ import 'package:adoptapet/feature/root/presentation/view/root_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/common/biometric_auth.dart';
+import '../../../forgot_password/presentation/view_model/forgot_password_view_model.dart';
 import '../view_model/auth_view_model.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -15,16 +15,18 @@ class LoginView extends ConsumerStatefulWidget {
 }
 
 class _LoginViewState extends ConsumerState<LoginView> {
+
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isObscure = true;
+  bool enableFingerprint = false;
 
   static const Color themeColor = Color(0xFF84D5D8);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       body: SingleChildScrollView(
@@ -40,7 +42,44 @@ class _LoginViewState extends ConsumerState<LoginView> {
               SizedBox(height: 24),
               _buildRegisterButton(),
               SizedBox(height: 24),
-              _buildBiometricButton(),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    ref.read(authViewModelProvider.notifier).loginWithFingerprint();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 100,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.fingerprint,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              CheckboxListTile(
+                title: const Text("Enable fingerprint login"),
+                value: enableFingerprint,
+                onChanged: (bool? value) {
+                  setState(() {
+                    enableFingerprint = value ?? false;
+                  });
+                  if (value == true) {
+                    ref.read(authViewModelProvider.notifier).setupFingerprintLogin(
+                      _emailController.text,
+                      _passwordController.text,
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -232,32 +271,5 @@ class _LoginViewState extends ConsumerState<LoginView> {
     );
   }
 
-  Widget _buildBiometricButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        icon: Icon(Icons.fingerprint),
-        label: Text('Login with Biometrics'),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey[200],
-          foregroundColor: Colors.black87,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onPressed: () async {
-          final authenticate = await BiometricAuth.authenticateWithBiometrics();
-          if (authenticate) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const RootApp(),
-              ),
-            );
-          }
-        },
-      ),
-    );
+
   }
-}

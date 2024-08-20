@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/common/theme/color.dart';
@@ -41,25 +40,17 @@ class _HomeState extends ConsumerState<Home> {
       ),
     );
   }
+
   _buildBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 0, bottom: 10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: 25,
-          ),
-          _buildCategories(),
-          // const SizedBox(
-          //   height: 15,
-          // ),
-          // _buildDonationCard(),
-          const SizedBox(
-            height: 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-            child: Text(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCategories(),
+            const SizedBox(height: 35),
+            Text(
               "Adopt Me",
               style: TextStyle(
                 color: AppColor.textColor,
@@ -67,15 +58,16 @@ class _HomeState extends ConsumerState<Home> {
                 fontSize: 24,
               ),
             ),
-          ),
-          _buildPets(),
-        ]),
+            const SizedBox(height: 15),
+            _buildPets(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAppBar() {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
@@ -85,45 +77,23 @@ class _HomeState extends ConsumerState<Home> {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.place_outlined,
-                    color: AppColor.labelColor,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "Location",
-                    style: TextStyle(
-                      color: AppColor.labelColor,
-                      fontSize: 13,
-                    ),
-                  ),
+                  Icon(Icons.place_outlined, color: AppColor.labelColor, size: 20),
+                  SizedBox(width: 5),
+                  Text("Location", style: TextStyle(color: AppColor.labelColor, fontSize: 13)),
                 ],
               ),
-              SizedBox(
-                height: 3,
-              ),
+              SizedBox(height: 3),
               Text(
                 "Phnom Penh, Cambodia",
-                style: TextStyle(
-                  color: AppColor.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: AppColor.textColor, fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ],
           ),
         ),
-        NotificationBox(
-          notifiedNumber: 1,
-          onTap: null,
-        )
+        NotificationBox(notifiedNumber: 1, onTap: null)
       ],
     );
   }
-
   _buildCategories(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -183,81 +153,42 @@ class _HomeState extends ConsumerState<Home> {
         ),
 
         SizedBox(width: 20),
-    ElevatedButton(
-    onPressed: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => PetListingView(), // Replace with your page
-    ),
-    );
-    },
-    style: ElevatedButton.styleFrom(
-      fixedSize: Size(90, 90), // Increased size to accommodate icon and text
-      backgroundColor: Color(0xff84D5D8),
-      shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      ),
-      child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-      SvgPicture.asset(
-      'assets/icons/pet-border.svg', // Replace with the path to your paw icon SVG
-      height: 30,
-      color: Colors.white,
-      ),
-      SizedBox(height: 5),
-      Text(
-      'All Pets',
-      style: TextStyle(color: Colors.white),
-      ),
-      ],
-      ),
-    ),
-    ],
-    );
-  }
-
-  _buildDonationCard() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Donate',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Donate and help us',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PetListingView(),
               ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(90, 90),
+            backgroundColor: Color(0xff84D5D8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
             ),
-            Icon(Icons.arrow_forward, color: Colors.blue),
-          ],
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: SvgPicture.asset(
+                  'assets/icons/pet-border.svg',
+                  color: Colors.white,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(height: 5),
+              Text(
+                'All Pets',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

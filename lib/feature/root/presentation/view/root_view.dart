@@ -21,7 +21,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
   final List barItems = [
     {
       "icon": "assets/icons/home-border.svg",
-      "active_icon": "assets/icons/home.svg",
+      "active_icon": "assets/icons/home-border.svg",
       "page": Home(),
     },
     {

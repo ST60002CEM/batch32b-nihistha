@@ -14,7 +14,12 @@ final profileUsecaseProvider = Provider(
 class ProfileUsecase{
   final IProfileRepository profileRepository;
   ProfileUsecase({required this.profileRepository});
+
   Future<Either<Failure, ProfileEntity>> getCurrentUser() async {
     return await profileRepository.getCurrentUser();
+  }
+
+  Future<Either<Failure,bool>>updateUserProfile(ProfileEntity profile)async{
+    return await profileRepository.updateUserProfile(profile);
   }
 }

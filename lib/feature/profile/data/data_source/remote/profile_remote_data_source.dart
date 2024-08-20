@@ -60,4 +60,35 @@ class ProfileRemoteDataSource{
       );
     }
   }
+
+
+  Future<Either<Failure, bool>> updateUserProfile(ProfileEntity profile) async {
+    try {
+      final tokenData = await userSharedPrefs.getUserToken();
+      final token = tokenData.fold((e) {
+        return "";
+      }, (success) {
+        return success;
+      });
+
+      Response response = await dio.put(
+        ApiEndpoints.updateUser,
+        data: {
+          'email': profile.email,
+          'phonenumber': profile.phonenumber,
+          'fullname':profile.fullname
+        },
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(Failure(error: response.data["message"]));
+      }
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
 }

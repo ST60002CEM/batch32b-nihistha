@@ -11,4 +11,5 @@ final profileRepositoryProvider = Provider<IProfileRepository>((ref) {
 
 abstract class IProfileRepository{
   Future<Either<Failure,ProfileEntity>>getCurrentUser();
+  Future<Either<Failure,bool>>updateUserProfile(ProfileEntity profile);
 }

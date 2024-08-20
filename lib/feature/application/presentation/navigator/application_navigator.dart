@@ -20,8 +20,8 @@ mixin ApplicationViewRoute {
   }
 
 }
-mixin UserApplicationViewRoute{
-  void openUserApplications(){
-    NavigateRoute.pushRoute(UserApplicationsView());
-  }
-}
+// mixin UserApplicationViewRoute{
+//   void openUserApplications(){
+//     NavigateRoute.pushRoute(UserApplicationsView());
+//   }
+// }

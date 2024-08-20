@@ -1,6 +1,8 @@
+import 'package:adoptapet/feature/profile/presentation/view/update_profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../forgot_password/presentation/view/verification_view.dart';
 import '../view_model/profile_view_model.dart';
 
 class ProfileUI extends ConsumerStatefulWidget {
@@ -46,7 +48,8 @@ class _ProfileUIState extends ConsumerState<ProfileUI> {
         actions: [
           IconButton(
             icon: Icon(Icons.share, color: Colors.black),
-            onPressed: () {/* Share functionality */},
+            onPressed: (
+                ) {},
           ),
         ],
       ),
@@ -78,7 +81,9 @@ class _ProfileUIState extends ConsumerState<ProfileUI> {
                     child: Icon(
                         Icons.edit,
                         color: Colors.white),
-                    onPressed: () {/* Edit functionality */},
+                    onPressed: () {
+                      ref.read(profileViewModelProvider.notifier).openUpdateProfileView();
+                    },
                   ),
                 ],
               ),
@@ -109,7 +114,14 @@ class _ProfileUIState extends ConsumerState<ProfileUI> {
               ListTile(
                 leading: Icon(Icons.lock_reset, color: Colors.grey),
                 title: Text('Forgot Password'),
-                onTap: () {/* Forgot Password functionality */},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const VerificationView()),
+                  );
+                },
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app, color: Colors.red),

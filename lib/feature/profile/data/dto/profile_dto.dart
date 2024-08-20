@@ -1,7 +1,5 @@
-import 'package:adoptapet/feature/auth/domain/entity/auth_entity.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entity/profile_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 import '../model/profile_model.dart';
 
 part 'profile_dto.g.dart';

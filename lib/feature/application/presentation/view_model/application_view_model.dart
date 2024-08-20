@@ -15,17 +15,15 @@ import '../navigator/application_navigator.dart';
 final applicationViewModelProvider = StateNotifierProvider<ApplicationViewModel,ApplicationState>((ref){
   final navigator = ref.read(applicationNavigatorProvider);
   final applicationUsecase = ref.read(applicationUseCaseProvider);
-  final petDetailsUseCase = ref.read(petDetailsUseCaseProvider);
   final mailNavigator = ref.read(mailNavigatorProvider);
-  return ApplicationViewModel(applicationUsecase,mailNavigator,navigator,petDetailsUseCase);
+  return ApplicationViewModel(applicationUsecase,mailNavigator,navigator);
 });
 
 class ApplicationViewModel extends StateNotifier<ApplicationState>{
   final ApplicationUseCase applicationUseCase;
   ApplicationNavigator navigator;
   MailNavigator mailNavigator;
-  final PetDetailsUseCase petDetailsUseCase;
-  ApplicationViewModel( this.applicationUseCase,this.mailNavigator, this.navigator,this.petDetailsUseCase): super(ApplicationState.initial());
+  ApplicationViewModel( this.applicationUseCase,this.mailNavigator, this.navigator): super(ApplicationState.initial());
 
   Future<void> submitApplication(ApplicationEntity application) async {
     state = state.copyWith(isLoading: true);

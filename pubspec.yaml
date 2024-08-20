@@ -59,7 +59,9 @@ dependencies:
   mockito: ^5.4.4
   all_sensors2: ^1.0.1
   local_auth: ^2.2.0
+  flutter_secure_storage: ^9.2.2
   font_awesome_flutter: ^10.7.0
+  network_image_mock: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +98,7 @@ flutter:
     - assets/icons/pet-border.svg
     - assets/icons/profile.svg
     - assets/icons/mail.svg
+    - assets/icons/home-border.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

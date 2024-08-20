@@ -14,10 +14,10 @@ final petListingViewModelProvider = StateNotifierProvider<PetListingViewModel,Pe
 
 
 class PetListingViewModel extends StateNotifier<PetListingState>{
-  final PetListingUseCase _petListingUseCase;
+  final PetListingUseCase petListingUseCase;
   PetListingNavigator navigator;
 
-  PetListingViewModel(this.navigator,this._petListingUseCase):super(PetListingState.inital()){
+  PetListingViewModel(this.navigator,this.petListingUseCase):super(PetListingState.inital()){
     getPetListing();
 
   }
@@ -33,7 +33,7 @@ class PetListingViewModel extends StateNotifier<PetListingState>{
     try {
       state = state.copyWith(isLoading: true);
       final currentPage = page ?? state.page + 1;
-      final result = await _petListingUseCase.getPetListings(currentPage);
+      final result = await petListingUseCase.getPetListings(currentPage);
 
       return result.fold(
             (failure) {

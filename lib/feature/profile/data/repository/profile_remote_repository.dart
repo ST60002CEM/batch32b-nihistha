@@ -20,4 +20,10 @@ class ProfileRemoteRepository extends IProfileRepository{
     return profileRemoteDataSource.getCurrentUser();
   }
 
+  @override
+  Future<Either<Failure, bool>> updateUserProfile(ProfileEntity profile) {
+    // TODO: implement updateUserProfile
+    throw profileRemoteDataSource.updateUserProfile(profile);
+  }
+
 }
